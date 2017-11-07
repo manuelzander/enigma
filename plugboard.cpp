@@ -2,17 +2,12 @@
 #include <fstream>
 #include <cstdlib>
 #include "errors.h"
-#include "plugboard.h"
 #include "helper.h"
+#include "plugboard.h"
 
 using namespace std;
 
 string Plugboard::runPlugboard(string beforeplugboard){
-
-    cout << "Running plugboard..." << endl;
-
-    //int plugboardconfig[ALPHABET_SIZE] = {'A', 'B'};//, 'B', 'X', 'C', 'Y', 'D', 'T', 'E', 'P', 'F', 'S', 'G', 'Z', 'H', 'W', 'I', 'N',
-    //'J', 'O', 'K', 'U', 'L', 'R', 'M', 'Q'};
 
     string afterplugboard = "";
 
@@ -33,8 +28,7 @@ string Plugboard::runPlugboard(string beforeplugboard){
 
 void Plugboard::loadPlugboard(const char* filename){
 
-  cout << endl << "Loading config..." << endl;
-
+  //cout << endl << "Loading config..." << endl;
 
   ifstream input;
   input.open(filename);

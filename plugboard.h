@@ -1,5 +1,5 @@
-#ifndef Enigma_Plugboard
-#define Enigma_Plugboard
+#ifndef PLUGBOARD_H
+#define PLUGBOARD_H
 
 #include <iostream>
 #include <string>
@@ -9,8 +9,6 @@ using namespace std;
 
 class Plugboard {
 private:
-  string input;
-  string output;
   int number_count;
   int plugboardconfig[ALPHABET_SIZE];
 
@@ -18,7 +16,10 @@ public:
   Plugboard(){ //Constructor
     for (int i = 0; i < ALPHABET_SIZE; i++)
       plugboardconfig[i] = 0;
+
+      loadPlugboard("plugboards/error_test.pb");
   }
+
 	int checkPlugboardConfig(const char* filename);
   void loadPlugboard(const char* filename);
   string runPlugboard(string input);

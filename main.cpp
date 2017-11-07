@@ -1,20 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include "enigma.h"
 #include "plugboard.h"
 #include "errors.h"
 #include "helper.h"
 
 using namespace std;
 
-string get_raw_text();
 
 int main(int argc, char** argv){
 
-  //int numRotors = argc - 3;
-
   // Check for INSUFFICIENT_NUMBER_OF_PARAMETERS
-  if(argc == 1) {
+  if(argc < 3) {
     cout << "You provided an insufficient number of parameters! (1)" << endl;
     return INSUFFICIENT_NUMBER_OF_PARAMETERS;
     exit(1);
@@ -24,20 +22,33 @@ int main(int argc, char** argv){
   string input = get_raw_text();
   cout << input;*/
 
-  Plugboard plug1;
+  Plugboard plugboard1;
 
-  string test_input = "HALLO BIBI";
-  cout << endl << "Test Input: " << endl << test_input << endl;
+  string test_message = "HALLO";
+  string encoded_message = "";
 
-  if (plug1.checkPlugboardConfig(argv[1]) == NO_ERROR){
+  cout << endl << "Test Input: " << test_message << endl;
 
-    plug1.loadPlugboard(argv[1]);
+  if (plugboard1.checkPlugboardConfig(argv[1]) == NO_ERROR){
 
-    cout << endl << plug1.runPlugboard(test_input) << endl;
+    //plugboard1.loadPlugboard(argv[1]);
 
   }
 
-  cout << endl  << "End of program." << endl;
+  Rotors rotors1;
+
+  Enigma enig (argc, plugboard1, rotors1);
+
+  cout << endl << "Test Output: " << enig.encode(test_message);
+
+  /*for(int i=0; i<test_message.length(); i++){
+    encoded_message += rotorsystem1.runRotors(message.at(i));
+  }
+
+  encoded_message = plug1.runPlugboard(encoded_message);*/
+
+  cout << endl << endl  << "END of main function." << endl;
+
   return NO_ERROR;
 
 }
