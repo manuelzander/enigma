@@ -9,26 +9,32 @@ using namespace std;
 
 string Plugboard::runPlugboard(string beforeplugboard){
 
-  string afterplugboard = "";
+    cout << "Running plugboard..." << endl;
 
-  for(int i = 0; i < beforeplugboard.length(); i++){
-      for(int j = 0; j < number_count; j = j+2){
-          if(plugboardconfig[j] == beforeplugboard.at(i)){
-              afterplugboard += plugboardconfig[j+1];
-          } else if(plugboardconfig[j+1] == beforeplugboard.at(i)){
-              afterplugboard += plugboardconfig[j];
-          } else{
-              afterplugboard += beforeplugboard.at(i);
-          }
-      }
-  }
+    //int plugboardconfig[ALPHABET_SIZE] = {'A', 'B'};//, 'B', 'X', 'C', 'Y', 'D', 'T', 'E', 'P', 'F', 'S', 'G', 'Z', 'H', 'W', 'I', 'N',
+    //'J', 'O', 'K', 'U', 'L', 'R', 'M', 'Q'};
 
-  return afterplugboard;
+    string afterplugboard = "";
+
+    for(int i = 0; i < beforeplugboard.length(); i++){
+        for(int j = 0; j < number_count; j = j+2){
+            if(plugboardconfig[j] == beforeplugboard.at(i)){
+                afterplugboard += plugboardconfig[j+1];
+            } else if(plugboardconfig[j+1] == beforeplugboard.at(i)){
+                afterplugboard += plugboardconfig[j];
+            } else{
+                afterplugboard += beforeplugboard.at(i);
+            }
+        }
+    }
+
+    return afterplugboard;
 }
 
 void Plugboard::loadPlugboard(const char* filename){
 
-  cout << endl << "Loading plugboard config..." << endl;
+  cout << endl << "Loading config..." << endl;
+
 
   ifstream input;
   input.open(filename);

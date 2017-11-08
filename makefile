@@ -1,17 +1,17 @@
-enigma: main.o plugboard.o rotors.o reflector.o enigma.o
-	g++ -g main.o plugboard.o rotors.o reflector.o enigma.o -o enigma
+enigma: main.o plugboard.o rotor.o reflector.o enigma.o
+	g++ -g main.o plugboard.o rotor.o reflector.o enigma.o -o enigma
 
-enigma.o: enigma.cpp enigma.h plugboard.h rotors.h reflector.h errors.h helper.h
+enigma.o: enigma.cpp enigma.h plugboard.h rotor.h reflector.h errors.h helper.h
 	g++ -Wall -g -c enigma.cpp
 
-main.o: main.cpp enigma.h plugboard.h rotors.h errors.h helper.h
+main.o: main.cpp enigma.h plugboard.h rotor.h errors.h helper.h
 	g++ -Wall -g -c main.cpp
 
 plugboard.o: plugboard.cpp plugboard.h errors.h helper.h
 	g++ -Wall -g -c plugboard.cpp
 
-rotors.o: rotors.cpp rotors.h errors.h helper.h
-	g++ -Wall -g -c rotors.cpp
+rotor.o: rotor.cpp rotor.h errors.h helper.h
+	g++ -Wall -g -c rotor.cpp
 
 reflector.o: reflector.cpp reflector.h errors.h helper.h
 		g++ -Wall -g -c reflector.cpp

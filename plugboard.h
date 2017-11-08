@@ -17,13 +17,11 @@ public:
     for (int i = 0; i < ALPHABET_SIZE; i++)
       plugboardconfig[i] = 0;
 
-      loadPlugboard("plugboards/error_test.pb");
   }
 
 	int checkPlugboardConfig(const char* filename);
   void loadPlugboard(const char* filename);
   string runPlugboard(string input);
-
 };
 
 #endif

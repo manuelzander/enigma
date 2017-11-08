@@ -3,36 +3,42 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include "helper.h"
 #include "plugboard.h"
-#include "rotors.h"
+#include "rotor.h"
 #include "reflector.h"
 
 using namespace std;
 
 class Enigma {
 private:
-  int numRotors;
+  int numRotor;
   string input;
   string output;
   Plugboard plugboard;
-  Rotors rotors;
+  //Rotor** rotor_array;
+  vector<Rotor> rotor_vector;
+  Rotor rotor;
+  Reflector reflector;
 
 public:
-  Enigma(int _i, Plugboard _p, Rotors _r){ //Constructor
-
-    if (_i == 3) //No rotors at all
-      numRotors = 0;
-    else if (_i >= 5){ //At least one rotor
-      numRotors = _i - 4;
+  Enigma(int argc, char** argv){ //Constructor
+    if (argc == 3) //No rotor at all
+      numRotor = 0;
+    else if (argc >= 5){ //At least one rotor
+      numRotor = argc - 4;
     }
 
-    plugboard = _p;
-    rotors = _r;
-
+    plugboard.checkPlugboardConfig(argv[1]);
+    plugboard.loadPlugboard(argv[1]);
+    reflector.loadReflector(argv[2]);
   }
 
   string encode(string message);
+  char runRotorProcess(char c);
+  char runRotors(char c);
+  char runRotorsBack(char c);
 };
 
 #endif
