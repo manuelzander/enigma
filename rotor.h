@@ -10,9 +10,14 @@ using namespace std;
 class Rotor {
 private:
   int rotorconfig[ROTOR_MAP_SIZE];
+  int reverse_rotorconfig[ROTOR_MAP_SIZE];
+
 
 public:
   Rotor(){ //Constructor
+
+
+
   }
 	int checkRotorConfig(const char* filename);
   void loadRotor(const char* filename);

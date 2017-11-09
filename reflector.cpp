@@ -9,19 +9,17 @@ using namespace std;
 
 char Reflector::runReflector(char c){
 
-  /*string afterreflector = "";
-
-  for(int i = 0; i < beforereflector.length(); i++){
-      for(int j = 0; j < ALPHABET_SIZE; j = j+2){
-          if(reflectorconfig[j] == beforereflector.at(i)){
-              afterreflector += reflectorconfig[j+1];
-          } else if(reflectorconfig[j+1] == beforereflector.at(i)){
-              afterreflector += reflectorconfig[j];
+      for(int i = 0; i < ALPHABET_SIZE; i = i+2){
+          if(reflectorconfig[i] == c){
+            c = reflectorconfig[i+1];
+          }
+          else if(reflectorconfig[i+1] == c){
+            c = reflectorconfig[i];
           }
       }
-  }
 
-  return afterreflector;*/
+  return c;
+
 }
 
 void Reflector::loadReflector(const char* filename){

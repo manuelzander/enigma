@@ -9,22 +9,18 @@ using namespace std;
 
 char Enigma::runRotors(char c){
 
-  /*for(int i = 0; i < numRotors; i++){
-    c = rotors[numRotors - i].encodeChar(c);
-    }
+  for(int i = 0; i < numRotor; i++){
+    c = rotor_array[i].encodeChar(c);
   }
-  */
-
-  c = rotor.encodeChar(c);
 
   return c;
 }
 
 char Enigma::runRotorsBack(char c){
 
-  //Do some fancy stuff
-
-  c = rotor.encodeCharBack(c);
+  for(int i = 0; i < numRotor; i++){
+    c = rotor_array[i].encodeCharBack(c);
+  }
 
   return c;
 }
@@ -36,7 +32,7 @@ char Enigma::runRotorProcess(char c){
     c = runRotors(c);
 
   // Reflector encryption
-	//c = reflector.runReflector(c);
+	c = reflector.runReflector(c);
 
   // Backwards rotor encryption
 	if (numRotor != 0)
@@ -72,3 +68,14 @@ string Enigma::encode(string message){
   return encoded_message;
 
 }
+
+/*void Enigma::createRotors(){
+
+  int argv_id = numRotor + 3;
+
+  for (int i = 0; i < numRotor; i++){
+    rotor_array[i]->loadRotor(argv[argv_id]);
+    argv_id--;
+  }
+
+}*/

@@ -10,23 +10,30 @@ using namespace std;
 
 char Rotor::encodeChar(char c){
 
-  c = c + 1;
+  //c = c + 1;
 
+  int temp = c - 65;
+
+  c = rotorconfig[temp] + 65;
   return c;
 
 }
 
 char Rotor::encodeCharBack(char c){
 
-  c = c - 1;
+  int temp = c - 65;
+
+  for(int i = 0; i < 26; i++){
+    if(rotorconfig[i] == temp){
+      return i + 65;
+    }
+  }
 
   return c;
 
 }
 
 void Rotor::loadRotor(const char* filename){
-
-  //cout << endl << "Loading config..." << endl;
 
   ifstream input;
   input.open(filename);
@@ -37,10 +44,17 @@ void Rotor::loadRotor(const char* filename){
   input >> input_int;
 
   while (!input.eof()){
-    rotorconfig[i] = 65 + input_int;
+
+    rotorconfig[i] = input_int;
     i++;
     input >> input_int;
 	}
+
+  for(int i = 0; i < ROTOR_MAP_SIZE; i++){
+
+    cout << endl << rotorconfig[i] << endl;
+
+  }
 
   input.close();
 

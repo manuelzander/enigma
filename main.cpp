@@ -22,7 +22,7 @@ int main(int argc, char** argv){
   string input = get_raw_text();
   cout << input;*/
 
-  string test_message = "HALLO";
+  string test_message = "ABCDECGHIJLMNOPQRSTUVWXYZ";
   string encoded_message = "";
 
   cout << endl << "Test Input: " << test_message << endl;
