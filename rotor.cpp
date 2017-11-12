@@ -10,9 +10,7 @@ using namespace std;
 
 char Rotor::encodeChar(char c){
 
-  c = rotorconfig[(c + rotation) % ALPHABET_SIZE];
-
-  return c;
+  return rotorconfig[(c + rotation) % ALPHABET_SIZE];
 
 }
 
@@ -32,7 +30,7 @@ void Rotor::loadRotor(const char* filename){
   input.open(filename);
 
   int i = 0; //Couter for rotorconfig-array
-  int number_notches = 0; //Couter for notchconfig-array
+  //int number_notches = 0; //Couter for notchconfig-array
   int input_int;
 
   input >> input_int;

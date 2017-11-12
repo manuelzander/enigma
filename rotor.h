@@ -10,7 +10,6 @@ using namespace std;
 class Rotor {
 private:
   int rotorconfig[ROTOR_MAP_SIZE];
-  int reverse_rotorconfig[ROTOR_MAP_SIZE];
   int notchconfig[MAX_NOTCHES];
   int number_notches;
   int rotation;
@@ -25,6 +24,7 @@ public:
     }
 
     rotation = 0;
+    number_notches = 0;
   }
 	int checkRotorConfig(const char* filename);
   void loadRotor(const char* filename);

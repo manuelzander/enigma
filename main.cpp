@@ -23,7 +23,8 @@ int main(int argc, char** argv){
   //string input = get_input_message();
   //cout << input;
 
-  string test_message = "UCCMMFOBVVO";
+  string test_message = "MCKEO";
+
   string encoded_message = "";
 
   cout << endl << "Test Input: " << test_message << endl;

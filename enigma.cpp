@@ -9,10 +9,12 @@ using namespace std;
 
 void Enigma::turnRotors(){
 
+  cout << endl << "Turn rotor 0" << endl;
   rotor_array[0].turn();
 
   for(int i = 0; i < number_rotors; i++) {
 		if(rotor_array[i].testForNotch() == true && number_rotors > i+1) {
+      cout << endl << "Turn rotor " << i + 1 << endl;  
 			rotor_array[i+1].turn();
 		}
 	}
@@ -22,9 +24,7 @@ void Enigma::turnRotors(){
 char Enigma::runRotors(char c){
 
   for(int i = 0; i < number_rotors; i++){
-
     c = rotor_array[i].encodeChar(c);
-
   }
 
   return c;
@@ -32,7 +32,7 @@ char Enigma::runRotors(char c){
 
 char Enigma::runRotorsBack(char c){
 
-  for(int i = 0; i < number_rotors; i++){
+  for(int i = number_rotors-1; i >= 0; i--){
     c = rotor_array[i].encodeCharBack(c);
   }
 
@@ -41,7 +41,7 @@ char Enigma::runRotorsBack(char c){
 
 char Enigma::runRotorProcess(char c){
 
-  c = c - 65;
+  c = c - 65; //Convert from ASCII to 0 based alphabet
 
   // Forward rotor encryption
   if (number_rotors != 0)
@@ -55,7 +55,7 @@ char Enigma::runRotorProcess(char c){
 	if (number_rotors != 0)
     c = this->runRotorsBack(c);
 
-  return c + 65;
+  return c + 65; //Convert from 0 based alphabet to ASCII
 }
 
 string Enigma::encode(string message){

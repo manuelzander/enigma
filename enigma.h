@@ -46,6 +46,7 @@ public:
 
     }
 
+    //WRITE A PROPER DECONSTRUCTOR FOR THE rotor_array
     //˜Enigma(){ delete [] rotor_array}
 
     plugboard.checkPlugboardConfig(argv[1]);
