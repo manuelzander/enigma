@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
 #include "helper.h"
 #include "plugboard.h"
 #include "rotor.h"
@@ -13,34 +12,33 @@ using namespace std;
 
 class Enigma {
 private:
-  int numRotor;
+  int number_rotors;
   string input;
   string output;
   Plugboard plugboard;
   Rotor *rotor_array;
-  //vector<Rotor> rotor_vector;
   Rotor rotor;
   Reflector reflector;
 
 public:
-  Enigma(int argc, char** argv){ //Constructor
+  Enigma(int argc, char** argv){ //Constructor --> Move into enigma.cpp
     if (argc == 3) //No rotor at all
-      numRotor = 0;
+      number_rotors = 0;
     else if (argc >= 5){ //At least one rotor
-      numRotor = argc - 4;
-      cout << endl << "Number of rotors: " << numRotor << endl;
+      number_rotors = argc - 4;
+      cout << endl << "Number of rotors: " << number_rotors << endl;
       int argc_temp = argc - 2;
 
       //Creating dynamic array for the rotors
-      this->rotor_array = new Rotor[numRotor];
+      this->rotor_array = new Rotor[number_rotors];
 
       //Loading rotor objects into the dynamic array
-      for (int i = 0; i < numRotor; i++){
+      for (int i = 0; i < number_rotors; i++){
         rotor_array[i] = Rotor();
       }
 
       // Load the rotor config in each rotor
-      for (int i = 0; i < numRotor; i++){
+      for (int i = 0; i < number_rotors; i++){
         cout << endl << "Loading config for rotor " << i << " with argc " << argc_temp << endl;
         rotor_array[i].loadRotor(argv[argc_temp]);
         argc_temp--;
@@ -60,6 +58,9 @@ public:
   char runRotorProcess(char c);
   char runRotors(char c);
   char runRotorsBack(char c);
+  char turnRotors(char c);
+  void turnRotors();
+
 };
 
 #endif

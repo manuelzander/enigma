@@ -8,6 +8,7 @@
 
 using namespace std;
 
+string get_input_message();
 
 int main(int argc, char** argv){
 
@@ -18,11 +19,11 @@ int main(int argc, char** argv){
     exit(1);
 	}
 
-  /*Read in a string to encrypt/decrypt
-  string input = get_raw_text();
-  cout << input;*/
+  //Read in a string to encode
+  //string input = get_input_message();
+  //cout << input;
 
-  string test_message = "ABCDECGHIJLMNOPQRSTUVWXYZ";
+  string test_message = "UCCMMFOBVVO";
   string encoded_message = "";
 
   cout << endl << "Test Input: " << test_message << endl;
@@ -49,11 +50,18 @@ int main(int argc, char** argv){
 
 }
 
-/*string get_raw_text() {
-	string raw_text, line;
-	while(std::cin >> line) {
-		raw_text.append(line);
+string get_input_message() {
+	string input;
+
+  char c;
+
+  for(int i = 0; i < MAX_MESSAGE_LEGTH; i++){
+    cin >> c;
+    if(c >= 'A' && c <= 'Z'){
+      input += c;
+    }
+
 	}
 
-	return raw_text;
-}*/
+	return input;
+}

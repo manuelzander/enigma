@@ -35,7 +35,7 @@ void Reflector::loadReflector(const char* filename){
   input >> input_int;
 
   while (!input.eof()){
-    reflectorconfig[i] = 65 + input_int;
+    reflectorconfig[i] = input_int;
     i++;
     input >> input_int;
 	}

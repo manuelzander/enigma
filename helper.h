@@ -1,2 +1,4 @@
 #define ALPHABET_SIZE 26
-#define ROTOR_MAP_SIZE 27
+#define ROTOR_MAP_SIZE 26
+#define MAX_MESSAGE_LEGTH 10
+#define MAX_NOTCHES 26

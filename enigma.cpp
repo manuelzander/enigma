@@ -7,10 +7,24 @@
 
 using namespace std;
 
+void Enigma::turnRotors(){
+
+  rotor_array[0].turn();
+
+  for(int i = 0; i < number_rotors; i++) {
+		if(rotor_array[i].testForNotch() == true && number_rotors > i+1) {
+			rotor_array[i+1].turn();
+		}
+	}
+
+}
+
 char Enigma::runRotors(char c){
 
-  for(int i = 0; i < numRotor; i++){
+  for(int i = 0; i < number_rotors; i++){
+
     c = rotor_array[i].encodeChar(c);
+
   }
 
   return c;
@@ -18,7 +32,7 @@ char Enigma::runRotors(char c){
 
 char Enigma::runRotorsBack(char c){
 
-  for(int i = 0; i < numRotor; i++){
+  for(int i = 0; i < number_rotors; i++){
     c = rotor_array[i].encodeCharBack(c);
   }
 
@@ -27,23 +41,26 @@ char Enigma::runRotorsBack(char c){
 
 char Enigma::runRotorProcess(char c){
 
+  c = c - 65;
+
   // Forward rotor encryption
-  if (numRotor != 0)
-    c = runRotors(c);
+  if (number_rotors != 0)
+    turnRotors();
+    c = this->runRotors(c);
 
   // Reflector encryption
 	c = reflector.runReflector(c);
 
-  // Backwards rotor encryption
-	if (numRotor != 0)
-    c = runRotorsBack(c);
+  // Reverse rotor encryption
+	if (number_rotors != 0)
+    c = this->runRotorsBack(c);
 
-  return c;
+  return c + 65;
 }
 
 string Enigma::encode(string message){
 
-  cout << endl << "Number of rotors: " << numRotor << endl;
+  cout << endl << "Number of rotors: " << number_rotors << endl;
   string encoded_message = "";
 
   // 1. run of plugboard
@@ -55,7 +72,7 @@ string Enigma::encode(string message){
   cout << "Rotor-Test before: " << message << endl;
 
   for(int i=0; i<message.length(); i++){
-    encoded_message += runRotorProcess(message.at(i));
+    encoded_message += this->runRotorProcess(message.at(i));
   }
 
   cout << "Rotor-Test after: " << encoded_message << endl << endl;
@@ -68,14 +85,3 @@ string Enigma::encode(string message){
   return encoded_message;
 
 }
-
-/*void Enigma::createRotors(){
-
-  int argv_id = numRotor + 3;
-
-  for (int i = 0; i < numRotor; i++){
-    rotor_array[i]->loadRotor(argv[argv_id]);
-    argv_id--;
-  }
-
-}*/

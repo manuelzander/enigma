@@ -14,9 +14,9 @@ private:
 
 public:
   Plugboard(){ //Constructor
-    for (int i = 0; i < ALPHABET_SIZE; i++)
+    for (int i = 0; i < ALPHABET_SIZE; i++){
       plugboardconfig[i] = 0;
-
+    }
   }
 
 	int checkPlugboardConfig(const char* filename);
