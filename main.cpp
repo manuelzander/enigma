@@ -23,27 +23,15 @@ int main(int argc, char** argv){
   //string input = get_input_message();
   //cout << input;
 
-  string test_message = "MCKEO";
+  string test_message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
   string encoded_message = "";
 
   cout << endl << "Test Input: " << test_message << endl;
 
-  //if (checkPlugboardConfig(argv[1]) == NO_ERROR){
-
-    //plugboard1.loadPlugboard(argv[1]);
-
-  //}
-
   Enigma enig (argc, argv);
 
   cout << endl << "Test Output: " << enig.encode(test_message);
-
-  /*for(int i=0; i<test_message.length(); i++){
-    encoded_message += rotorsystem1.runRotors(message.at(i));
-  }
-
-  encoded_message = plug1.runPlugboard(encoded_message);*/
 
   cout << endl << endl  << "END of main function." << endl;
 

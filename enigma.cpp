@@ -14,7 +14,7 @@ void Enigma::turnRotors(){
 
   for(int i = 0; i < number_rotors; i++) {
 		if(rotor_array[i].testForNotch() == true && number_rotors > i+1) {
-      cout << endl << "Turn rotor " << i + 1 << endl;  
+      cout << endl << "Turn rotor " << i + 1 << endl;
 			rotor_array[i+1].turn();
 		}
 	}

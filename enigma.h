@@ -44,6 +44,11 @@ public:
         argc_temp--;
       }
 
+      // Load the rotor poitions in each rotor
+      for (int i = number_rotors-1; i >= 0; i--){
+        rotor_array[i].loadRotorPosition(argv[argc - 1], i, number_rotors);
+      }
+
     }
 
     //WRITE A PROPER DECONSTRUCTOR FOR THE rotor_array
@@ -52,6 +57,7 @@ public:
     plugboard.checkPlugboardConfig(argv[1]);
     plugboard.loadPlugboard(argv[1]);
     reflector.loadReflector(argv[2]);
+
   }
 
   //void createRotors();

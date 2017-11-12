@@ -10,6 +10,8 @@ using namespace std;
 
 char Rotor::encodeChar(char c){
 
+  cout << endl << "Rotation: " << rotation << endl;
+
   return rotorconfig[(c + rotation) % ALPHABET_SIZE];
 
 }
@@ -57,7 +59,7 @@ void Rotor::loadRotor(const char* filename){
   }
 
   cout << endl << "Notchconfig:" << number_notches<< endl;
-  for(int i = 0; i < MAX_NOTCHES; i++){
+  for(int i = 0; i < number_notches; i++){
 
     cout << endl << notchconfig[i] << endl;
 
@@ -67,6 +69,31 @@ void Rotor::loadRotor(const char* filename){
 
 }
 
+void Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_rotors){
+
+  cout << endl << "Loading rotor positions for rotor " << rotor_id << "..."<< endl;
+
+  ifstream input;
+  input.open(filename);
+
+  int input_int;
+
+  input >> input_int;
+
+  //Rotor id = 2
+
+  for (int i = number_rotors-1; !input.eof(); i--){
+    if (i == rotor_id){
+      rotation = input_int;
+    }
+    input >> input_int;
+  }
+
+  input.close();
+
+}
+
+
 void Rotor::turn(){
 
   rotation = (rotation + 1) % ALPHABET_SIZE;
@@ -75,7 +102,7 @@ void Rotor::turn(){
 
 bool Rotor::testForNotch(){
 
-  for(int i = 0; i < MAX_NOTCHES; i++){
+  for(int i = 0; i < number_notches; i++){
     if (notchconfig[i] == rotation)
       return true;
   }

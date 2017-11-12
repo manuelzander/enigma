@@ -28,6 +28,7 @@ public:
   }
 	int checkRotorConfig(const char* filename);
   void loadRotor(const char* filename);
+  void loadRotorPosition(const char* filename, int rotor_id, int number_rotors);
   char encodeChar(char c);
   char encodeCharBack(char c);
   void turn();
