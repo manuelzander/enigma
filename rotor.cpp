@@ -11,7 +11,6 @@ using namespace std;
 char Rotor::encodeChar(char c){
 
   cout << endl << "Rotation: " << rotation << endl;
-
   return rotorconfig[(c + rotation) % ALPHABET_SIZE];
 
 }

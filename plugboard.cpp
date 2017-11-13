@@ -60,14 +60,14 @@ int Plugboard::checkPlugboardConfig(const char* filename){
   while (!input.eof()){
 
     if(input_int < 0 || input_int > 25){
-      cout << "You provided an invalid index! (3)" << endl;
+      cerr << "You provided an invalid index! (3)" << endl;
       input.close();
       exit(INVALID_INDEX);
     }
 
 
     if (!input.good() && !input.eof()){
-      cout << "You provided a non-numeric plugboard parameter! (4)" << endl;
+      cerr << "You provided a non-numeric plugboard parameter! (4)" << endl;
       input.close();
       exit(NON_NUMERIC_CHARACTER);
     }

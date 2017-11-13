@@ -51,13 +51,14 @@ public:
 
     }
 
-    //WRITE A PROPER DECONSTRUCTOR FOR THE rotor_array
-    //˜Enigma(){ delete [] rotor_array}
-
     plugboard.checkPlugboardConfig(argv[1]);
     plugboard.loadPlugboard(argv[1]);
     reflector.loadReflector(argv[2]);
 
+  }
+  //WRITE A PROPER DECONSTRUCTOR FOR THE rotor_array
+  ~Enigma(){
+    delete [] rotor_array;
   }
 
   //void createRotors();
