@@ -7,23 +7,19 @@
 
 using namespace std;
 
-string Plugboard::runPlugboard(string beforeplugboard){
+char Plugboard::runPlugboard(char c){
 
-  string afterplugboard = "";
-
-  for(int i = 0; i < beforeplugboard.length(); i++){
-      for(int j = 0; j < number_count; j = j+2){
-          if(plugboardconfig[j] == beforeplugboard.at(i)){
-              afterplugboard += plugboardconfig[j+1];
-          } else if(plugboardconfig[j+1] == beforeplugboard.at(i)){
-              afterplugboard += plugboardconfig[j];
-          } else{
-              afterplugboard += beforeplugboard.at(i);
-          }
-      }
+  for(int i = 0; i < ALPHABET_SIZE; i = i+2){
+    if(plugboardconfig[i] == c){
+      c = plugboardconfig[i+1];
+    }
+    else if(plugboardconfig[i+1] == c){
+      c = plugboardconfig[i];
+    }
   }
 
-  return afterplugboard;
+  return c;
+
 }
 
 void Plugboard::loadPlugboard(const char* filename){
@@ -38,7 +34,7 @@ void Plugboard::loadPlugboard(const char* filename){
   input >> input_int;
 
   while (!input.eof()){
-    plugboardconfig[number_count] = 65 + input_int;
+    plugboardconfig[number_count] = input_int;
     number_count++;
     input >> input_int;
 	}

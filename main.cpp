@@ -23,14 +23,17 @@ int main(int argc, char** argv){
 
   //Test
   string input = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-
   string encoded_message = "";
 
   cout << endl << "Test Input: " << input << endl;
 
   Enigma enig (argc, argv);
 
-  cout << endl << "Test Output: " << enig.encode(input);
+  for(int i=0; i<input.length(); i++){
+    encoded_message += enig.encode(input.at(i));
+  }
+
+  cout << endl << "Test Output: " << encoded_message;
 
   cout << endl << endl  << "END of main function." << endl;
 
@@ -39,11 +42,13 @@ int main(int argc, char** argv){
 }
 
 string get_input_message() {
+
 	string input;
 
   //char c;
 
-  cout << "Please type your message! Only upper case letters are allowed" << endl
+  cout  << endl << "Please type your message:" << endl
+        << "Only upper case letters are allowed and" << endl
         << "white-space characters will be ignored!" << endl;
 
   /*for(int i = 0; i < MAX_MESSAGE_LEGTH; i++){
@@ -57,21 +62,17 @@ string get_input_message() {
 		}
 	}*/
 
-  /*cin >> c;
+  int counter = 0;
+  char c;
 
-  while(cin.good()){
-
-    cin >> c;
-
-    if(cin.fail()){
-      break;
-    }
+  while((cin >> ws >> c) && counter < MAX_MESSAGE_LEGTH){
 
     if(c >= 'A' && c <= 'Z'){
       input += c;
+      counter++;
     }
 
-  }*/
+  }
 
 	return input;
 }

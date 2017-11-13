@@ -41,16 +41,13 @@ char Enigma::runRotorsBack(char c){
   return c;
 }
 
-char Enigma::encode(char c){
+char Enigma::runRotorProcess(char c){
 
   c = c - 65; //Convert from ASCII to 0 based alphabet
 
-  // 1. run of plugboard
-  c = plugboard.runPlugboard(c);
-
-  //Forward rotor encryption
+  // Forward rotor encryption
   if (number_rotors != 0)
-    this->turnRotors();
+    turnRotors();
     c = this->runRotors(c);
 
   // Reflector encryption
@@ -60,8 +57,33 @@ char Enigma::encode(char c){
 	if (number_rotors != 0)
     c = this->runRotorsBack(c);
 
-  // 2. run of plugboard
-  c = plugboard.runPlugboard(c);
-
   return c + 65; //Convert from 0 based alphabet to ASCII
+}
+
+string Enigma::encode(string message){
+
+  cout << endl << "Number of rotors: " << number_rotors << endl;
+  string encoded_message = "";
+
+  // 1. run of plugboard
+  cout << "Plugboard1-Test before: " << message << endl;
+  message = plugboard.runPlugboard(message);
+  cout << "Plugboard1-Test after: " << message << endl << endl;
+
+  // Run the rotor process & reflector
+  cout << "Rotor-Test before: " << message << endl;
+
+  for(int i=0; i<message.length(); i++){
+    encoded_message += this->runRotorProcess(message.at(i));
+  }
+
+  cout << "Rotor-Test after: " << encoded_message << endl << endl;
+
+  // 2. run of plugboard
+  cout << "Plugboard2-Test before: " << encoded_message << endl;
+  encoded_message = plugboard.runPlugboard(encoded_message);
+  cout << "Plugboard2-Test after: " << encoded_message << endl << endl;
+
+  return encoded_message;
+
 }

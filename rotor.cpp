@@ -11,15 +11,18 @@ using namespace std;
 char Rotor::encodeChar(char c){
 
   cout << endl << "Rotation: " << rotation << endl;
-  return rotorconfig[(c + rotation) % ALPHABET_SIZE];
+  //return rotorconfig[(c + rotation) % ALPHABET_SIZE];
+  return (rotorconfig[(c + rotation) % ALPHABET_SIZE] - rotation + ALPHABET_SIZE) % ALPHABET_SIZE;
 
 }
 
 char Rotor::encodeCharBack(char c){
 
-  for(int i = 0; i < 26; i++){
+  c = (c + rotation) % ALPHABET_SIZE;
+
+  for(int i = 0; i < ALPHABET_SIZE; i++){
     if(rotorconfig[i] == c){
-      return ((i - rotation + ALPHABET_SIZE) % ALPHABET_SIZE);
+      return (i - rotation + ALPHABET_SIZE) % ALPHABET_SIZE;
     }
   }
 

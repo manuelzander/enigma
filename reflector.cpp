@@ -9,14 +9,14 @@ using namespace std;
 
 char Reflector::runReflector(char c){
 
-      for(int i = 0; i < ALPHABET_SIZE; i = i+2){
-          if(reflectorconfig[i] == c){
-            c = reflectorconfig[i+1];
-          }
-          else if(reflectorconfig[i+1] == c){
-            c = reflectorconfig[i];
-          }
-      }
+  for(int i = 0; i < ALPHABET_SIZE; i = i+2){
+    if(reflectorconfig[i] == c){
+      c = reflectorconfig[i+1];
+    }
+    else if(reflectorconfig[i+1] == c){
+      c = reflectorconfig[i];
+    }
+  }
 
   return c;
 

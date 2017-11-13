@@ -21,7 +21,7 @@ public:
 
 	int checkPlugboardConfig(const char* filename);
   void loadPlugboard(const char* filename);
-  string runPlugboard(string input);
+  char runPlugboard(char c);
 };
 
 #endif

@@ -62,8 +62,7 @@ public:
   }
 
   //void createRotors();
-  string encode(string message);
-  char runRotorProcess(char c);
+  char encode(char c);
   char runRotors(char c);
   char runRotorsBack(char c);
   char turnRotors(char c);
