@@ -57,7 +57,7 @@ char Enigma::encode(char c){
 	c = reflector.runReflector(c);
 
   // Backwards rotor encryption
-	if (number_rotors != 0)
+  if (number_rotors != 0)
     c = this->runRotorsBack(c);
 
   // 2. run of plugboard

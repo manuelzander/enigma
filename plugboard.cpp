@@ -45,48 +45,59 @@ void Plugboard::loadPlugboard(const char* filename){
 
 int Plugboard::checkPlugboardConfig(const char* filename){
 
+  cout << "Checking plugboard config..." << endl;
+
   ifstream input;
   input.open(filename);
 
   int input_int;
   int count = 0;
+  int temp_storage[ALPHABET_SIZE];
 
   input >> input_int;
 
   while (!input.eof()){
-
-    if(input_int < 0 || input_int > 25){
-      cerr << "You provided an invalid index! (3)" << endl;
-      input.close();
-      //exit(INVALID_INDEX);
-      return INVALID_INDEX;
-    }
-
-
-    if (!input.good() && !input.eof()){
-      cerr << "You provided a non-numeric plugboard parameter! (4)" << endl;
-      input.close();
-      //exit(NON_NUMERIC_CHARACTER);
-      return NON_NUMERIC_CHARACTER;
-    }
-
+    temp_storage[count] = input_int;
     count++;
-
     input >> input_int;
 
+    //Checking for NON_NUMERIC_CHARACTER
+    if (!input.good() && !input.eof()){
+      cerr << "You provided a non-numeric plugboard parameter! (4)" << endl;
+      return NON_NUMERIC_CHARACTER;
+    }
 	}
-
-  //Checking for INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS
-  if (count%2 != 0){
-    cout << "You provided an incorrect number of plugboard parameters! (6)" << endl;
-    input.close();
-    //exit(INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
-    return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
-  }
 
   input.close();
 
-  cout << endl << "Number pairs: " << count/2 << endl;
+  for(int i = 0; i < count; i++){
+    cout << temp_storage[i] << endl; //Print array
+  }
+
+  //Checking for IMPOSSIBLE_PLUGBOARD_CONFIGURATION
+  for(int i = 0; i < count; i++){
+    for(int j = i+1; j < count-1; j++){
+      if (temp_storage[i] == temp_storage[j]){
+        cerr << "You provided an invalid plugboard configuration! (5)" << endl;
+        return IMPOSSIBLE_PLUGBOARD_CONFIGURATION;
+      }
+    }
+  }
+
+  //Checking for INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS
+  if (count%2 != 0){
+    cerr << "You provided an incorrect number of plugboard parameters! (6)" << endl;
+    return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
+  }
+
+  //Checking for INVALID_INDEX
+  for(int i = 0; i < count; i++){
+    if(temp_storage[i] < 0 || temp_storage[i] > 25){
+      cerr << "You provided an invalid index! (3)" << endl;
+      return INVALID_INDEX;
+    }
+  }
+
   cout << "Plugboard config correct!" << endl;
 
   return NO_ERROR;

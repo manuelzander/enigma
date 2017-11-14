@@ -27,6 +27,7 @@ public:
     number_notches = 0;
   }
 	int checkRotorConfig(const char* filename);
+  int checkRotorPositionsConfig(const char* filename);
   void loadRotor(const char* filename);
   int loadRotorPosition(const char* filename, int rotor_id, int number_rotors);
   char encodeChar(char c);

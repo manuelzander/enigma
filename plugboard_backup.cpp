@@ -80,7 +80,7 @@ int Plugboard::checkPlugboardConfig(const char* filename){
 
   //Checking for INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS
   if (count%2 != 0){
-    cout << "You provided an incorrect number of plugboard parameters! (6)" << endl;
+    cerr << "You provided an incorrect number of plugboard parameters! (6)" << endl;
     input.close();
     exit(INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
   }

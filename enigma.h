@@ -36,6 +36,15 @@ public:
         rotor_array[i] = Rotor();
       }
 
+      // Check the rotor config for each rotor
+      for (int i = 0; i < number_rotors; i++){
+        cout << endl << "Checking config for rotor " << i << " with argc " << argc_temp << endl;
+        if(rotor_array[i].checkRotorConfig(argv[argc_temp]) != 0) break;
+        argc_temp--;
+      }
+
+      argc_temp = argc - 2;
+
       // Load the rotor config in each rotor
       for (int i = 0; i < number_rotors; i++){
         cout << endl << "Loading config for rotor " << i << " with argc " << argc_temp << endl;
@@ -49,9 +58,12 @@ public:
       }
     }
 
-    plugboard.checkPlugboardConfig(argv[1]);
+    //plugboard.checkPlugboardConfig(argv[1]);
     plugboard.loadPlugboard(argv[1]);
+    //reflector.checkReflectorConfig(argv[2]);
     reflector.loadReflector(argv[2]);
+
+    cout << endl << "Start of encryption:" << endl << endl;
 
   }
 
