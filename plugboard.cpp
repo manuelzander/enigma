@@ -9,7 +9,7 @@ using namespace std;
 
 char Plugboard::runPlugboard(char c){
 
-  for(int i = 0; i < ALPHABET_SIZE; i = i+2){
+  for(int i = 0; i < number_count; i = i+2){
     if(plugboardconfig[i] == c){
       c = plugboardconfig[i+1];
     }
@@ -58,14 +58,16 @@ int Plugboard::checkPlugboardConfig(const char* filename){
     if(input_int < 0 || input_int > 25){
       cerr << "You provided an invalid index! (3)" << endl;
       input.close();
-      exit(INVALID_INDEX);
+      //exit(INVALID_INDEX);
+      return INVALID_INDEX;
     }
 
 
     if (!input.good() && !input.eof()){
       cerr << "You provided a non-numeric plugboard parameter! (4)" << endl;
       input.close();
-      exit(NON_NUMERIC_CHARACTER);
+      //exit(NON_NUMERIC_CHARACTER);
+      return NON_NUMERIC_CHARACTER;
     }
 
     count++;
@@ -78,7 +80,8 @@ int Plugboard::checkPlugboardConfig(const char* filename){
   if (count%2 != 0){
     cout << "You provided an incorrect number of plugboard parameters! (6)" << endl;
     input.close();
-    exit(INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
+    //exit(INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
+    return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
   }
 
   input.close();

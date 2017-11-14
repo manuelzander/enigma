@@ -8,18 +8,33 @@
 
 using namespace std;
 
-string get_input_message();
-
 int main(int argc, char** argv){
 
   // Check for INSUFFICIENT_NUMBER_OF_PARAMETERS
   if(argc < 3) {
     cerr << "You provided an insufficient number of parameters! (1)" << endl;
-    exit(INSUFFICIENT_NUMBER_OF_PARAMETERS);
+    //exit(INSUFFICIENT_NUMBER_OF_PARAMETERS);
+    return INSUFFICIENT_NUMBER_OF_PARAMETERS;
 	}
 
-  //Read in a string to encode
-  //string input = get_input_message();
+  cout  << endl << "Please type your message:" << endl
+        << "Only upper case letters are allowed and" << endl
+        << "white-space characters will be ignored!" << endl;
+
+  /*string input;
+  int counter = 0;
+  char c;
+
+  while((cin >> ws >> c) && counter < MAX_MESSAGE_LEGTH){
+    if(c < 'A' || c > 'Z'){
+      cerr << "You input an invalid input character! (2)" << endl;
+      exit(INVALID_INPUT_CHARACTER);
+      return INVALID_INPUT_CHARACTER;
+    } else if(c >= 'A' && c <= 'Z'){
+      input += c;
+      counter++;
+    }
+  }*/
 
   //Test
   string input = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -41,33 +56,24 @@ int main(int argc, char** argv){
 
 }
 
-string get_input_message() {
+/*string get_input_message() {
 
 	string input;
-
-  //char c;
 
   cout  << endl << "Please type your message:" << endl
         << "Only upper case letters are allowed and" << endl
         << "white-space characters will be ignored!" << endl;
-
-  /*for(int i = 0; i < MAX_MESSAGE_LEGTH; i++){
-    cin >> c;
-    if(c >= 'A' && c <= 'Z'){
-      input += c;
-    }
-    else if (!isspace(c)){
-      cerr << "You provided an invalid input character! (2)" << endl;
-      exit(INVALID_INPUT_CHARACTER);
-		}
-	}*/
 
   int counter = 0;
   char c;
 
   while((cin >> ws >> c) && counter < MAX_MESSAGE_LEGTH){
 
-    if(c >= 'A' && c <= 'Z'){
+    if(c < 'A' || c > 'Z'){
+      cerr << "You input an invalid input character! (2)" << endl;
+      exit(INVALID_INPUT_CHARACTER);
+      return INVALID_INPUT_CHARACTER;
+    } else if(c >= 'A' && c <= 'Z'){
       input += c;
       counter++;
     }
@@ -75,4 +81,4 @@ string get_input_message() {
   }
 
 	return input;
-}
+}*/

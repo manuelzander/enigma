@@ -13,18 +13,17 @@ using namespace std;
 class Enigma {
 private:
   int number_rotors;
-  string input;
-  string output;
   Plugboard plugboard;
   Rotor *rotor_array;
-  Rotor rotor;
   Reflector reflector;
 
 public:
   Enigma(int argc, char** argv){ //Constructor --> Move into enigma.cpp
-    if (argc == 3) //No rotor at all
+    if (argc == 3){ //No rotor at all
       number_rotors = 0;
+    }
     else if (argc >= 5){ //At least one rotor
+
       number_rotors = argc - 4;
       cout << endl << "Number of rotors: " << number_rotors << endl;
       int argc_temp = argc - 2;
@@ -48,7 +47,6 @@ public:
       for (int i = number_rotors-1; i >= 0; i--){
         rotor_array[i].loadRotorPosition(argv[argc - 1], i, number_rotors);
       }
-
     }
 
     plugboard.checkPlugboardConfig(argv[1]);
@@ -56,18 +54,15 @@ public:
     reflector.loadReflector(argv[2]);
 
   }
-  //WRITE A PROPER DECONSTRUCTOR FOR THE rotor_array
+
   ~Enigma(){
-    delete [] rotor_array;
+    delete [] rotor_array; //Free memory
   }
 
-  //void createRotors();
   char encode(char c);
   char runRotors(char c);
   char runRotorsBack(char c);
-  char turnRotors(char c);
   void turnRotors();
-
 };
 
 #endif

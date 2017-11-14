@@ -11,7 +11,6 @@ using namespace std;
 char Rotor::encodeChar(char c){
 
   cout << endl << "Rotation: " << rotation << endl;
-  //return rotorconfig[(c + rotation) % ALPHABET_SIZE];
   return (rotorconfig[(c + rotation) % ALPHABET_SIZE] - rotation + ALPHABET_SIZE) % ALPHABET_SIZE;
 
 }
@@ -26,6 +25,8 @@ char Rotor::encodeCharBack(char c){
     }
   }
 
+  return c;
+
 }
 
 void Rotor::loadRotor(const char* filename){
@@ -34,7 +35,6 @@ void Rotor::loadRotor(const char* filename){
   input.open(filename);
 
   int i = 0; //Couter for rotorconfig-array
-  //int number_notches = 0; //Couter for notchconfig-array
   int input_int;
 
   input >> input_int;
@@ -71,30 +71,35 @@ void Rotor::loadRotor(const char* filename){
 
 }
 
-void Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_rotors){
+int Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_rotors){
 
   cout << endl << "Loading rotor positions for rotor " << rotor_id << "..."<< endl;
 
   ifstream input;
   input.open(filename);
-
-  int input_int;
-
+  int input_int, counter;
+  counter = 0;
   input >> input_int;
-
-  //Rotor id = 2
 
   for (int i = number_rotors-1; !input.eof(); i--){
     if (i == rotor_id){
       rotation = input_int;
     }
     input >> input_int;
+    counter ++;
   }
+
+if (counter < number_rotors){
+  cerr << "Not enough starting positions specified! (8)" << endl;
+  //exit(NO_ROTOR_STARTING_POSITION);
+  return NO_ROTOR_STARTING_POSITION;
+}
 
   input.close();
 
-}
+  return NO_ERROR;
 
+}
 
 void Rotor::turn(){
 

@@ -12,7 +12,6 @@ private:
   int reflectorconfig[ALPHABET_SIZE];
 
 public:
-
 	int checkReflectorConfig(const char* filename);
   void loadReflector(const char* filename);
   char runReflector(char c);

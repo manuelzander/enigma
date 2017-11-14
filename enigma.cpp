@@ -56,7 +56,7 @@ char Enigma::encode(char c){
   // Reflector encryption
 	c = reflector.runReflector(c);
 
-  // Reverse rotor encryption
+  // Backwards rotor encryption
 	if (number_rotors != 0)
     c = this->runRotorsBack(c);
 
