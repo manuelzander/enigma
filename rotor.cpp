@@ -53,17 +53,17 @@ void Rotor::loadRotor(const char* filename){
     input >> input_int;
 	}
 
-  cout << endl << "Rotorconfig:" << i << endl;
+  //cout << endl << "Rotorconfig:" << i << endl;
   for(int i = 0; i < ROTOR_MAP_SIZE; i++){
 
-    cout << endl << rotorconfig[i] << endl;
+    //cout << endl << rotorconfig[i] << endl;
 
   }
 
-  cout << endl << "Notchconfig:" << number_notches<< endl;
+  //cout << endl << "Notchconfig:" << number_notches<< endl;
   for(int i = 0; i < number_notches; i++){
 
-    cout << endl << notchconfig[i] << endl;
+    //cout << endl << notchconfig[i] << endl;
 
   }
 
@@ -72,7 +72,7 @@ void Rotor::loadRotor(const char* filename){
 
 void Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_rotors){
 
-  cout << endl << "Loading rotor positions for rotor " << rotor_id << "..."<< endl;
+  //cout << endl << "Loading rotor positions for rotor " << rotor_id << "..."<< endl;
 
   ifstream input;
   input.open(filename);

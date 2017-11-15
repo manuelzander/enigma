@@ -23,7 +23,7 @@ char Reflector::runReflector(char c){
 
 void Reflector::loadReflector(const char* filename){
 
-  cout << endl << "Loading reflector config..." << endl;
+  //cout << endl << "Loading reflector config..." << endl;
 
   ifstream input;
   input.open(filename);

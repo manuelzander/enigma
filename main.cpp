@@ -16,13 +16,17 @@ int main(int argc, char** argv){
     return INSUFFICIENT_NUMBER_OF_PARAMETERS;
 	}
 
-  cout  << endl << "Please type your message:" << endl
-        << "Only upper case letters are allowed and" << endl
-        << "white-space characters will be ignored!" << endl;
+  Enigma enig (argc, argv);
 
-  string input;
+  if (enig.config(argc, argv) != 0){
+    return enig.config(argc, argv);
+  }
+
+  //cout  << endl << "Please type your message:" << endl
+  //      << "Only upper case letters are allowed and" << endl
+  //      << "white-space characters will be ignored!" << endl;
+
   //int counter = 0;
-  char c;
 
   /*while((cin >> ws >> c) && counter < MAX_MESSAGE_LEGTH){
     if(c < 'A' || c > 'Z'){
@@ -35,6 +39,7 @@ int main(int argc, char** argv){
     }
   }*/
 
+  //string input;
   //input = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
   //string encoded_message = "";
   //cout << endl << "Test Input: " << input << endl;
@@ -43,7 +48,7 @@ int main(int argc, char** argv){
   //Do the checking here, not it in the Constructor for Enigma class
   // If return value x > 0, return x, otherwise create the Enigma machine an run encryption
 
-  Enigma enig (argc, argv);
+  char c;
 
   cin >> ws >> c;
   while(cin.good()){

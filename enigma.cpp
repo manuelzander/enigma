@@ -66,9 +66,46 @@ char Enigma::encode(char c){
   return c + 65; //Convert from 0 based alphabet to ASCII
 }
 
+int Enigma::config(int argc, char** argv){
+
+  if (checkPlugboardConfig(argv[1]) != 0){
+    return checkPlugboardConfig(argv[1]);
+  }
+  if(checkReflectorConfig(argv[2]) != 0){
+    return checkReflectorConfig(argv[2]);
+  }
+
+  for (int i = 3; i < argc-1; i++){
+    if(checkRotorConfig(argv[i]) != 0){
+      return checkRotorConfig(argv[i]);
+    }
+  }
+  if(checkRotorPositionsConfig(argv[argc - 1]) != 0){
+    return checkRotorPositionsConfig(argv[argc - 1]);
+  }
+
+  plugboard.loadPlugboard(argv[1]);
+  reflector.loadReflector(argv[2]);
+
+  int argc_temp = argc - 2;
+  // Load the rotor config in each rotor
+  for (int i = 0; i < number_rotors; i++){
+    //cout << endl << "Loading config for rotor " << i << " with argc " << argc_temp << endl;
+    rotor_array[i].loadRotor(argv[argc_temp]);
+    argc_temp--;
+  }
+
+  // Load the rotor poitions in each rotor
+  for (int i = number_rotors-1; i >= 0; i--){
+    rotor_array[i].loadRotorPosition(argv[argc - 1], i, number_rotors);
+  }
+
+  return NO_ERROR;
+}
+
 int Enigma::checkPlugboardConfig(const char* filename){
 
-  cout << "Checking plugboard config..." << endl;
+  //cout << "Checking plugboard config..." << endl;
 
   ifstream input;
   input.open(filename);
@@ -94,7 +131,7 @@ int Enigma::checkPlugboardConfig(const char* filename){
   input.close();
 
   for(int i = 0; i < count; i++){
-    cout << temp_storage[i] << endl; //Print array
+    //cout << temp_storage[i] << endl; //Print array
   }
 
   //Checking for IMPOSSIBLE_PLUGBOARD_CONFIGURATION
@@ -121,14 +158,14 @@ int Enigma::checkPlugboardConfig(const char* filename){
     }
   }
 
-  cout << "Plugboard config correct!" << endl;
+  //cout << "Plugboard config correct!" << endl;
   return NO_ERROR;
 
 }
 
 int Enigma::checkReflectorConfig(const char* filename){
 
-  cout << "Checking reflector config..." << endl;
+  //cout << "Checking reflector config..." << endl;
 
   ifstream input;
   input.open(filename);
@@ -154,7 +191,7 @@ int Enigma::checkReflectorConfig(const char* filename){
   input.close();
 
   for(int i = 0; i < ALPHABET_SIZE; i++){
-    cout << temp_storage[i] << endl; //Print array
+    //cout << temp_storage[i] << endl; //Print array
   }
 
   //Checking for INVALID_REFLECTOR_MAPPING
@@ -181,14 +218,14 @@ int Enigma::checkReflectorConfig(const char* filename){
     }
   }
 
-  cout << "Reflector config correct!" << endl;
+  //cout << "Reflector config correct!" << endl;
   return NO_ERROR;
 
 }
 
 int Enigma::checkRotorPositionsConfig(const char* filename){
 
-  cout << "Checking rotor positions config..." << endl;
+  //cout << "Checking rotor positions config..." << endl;
 
   ifstream input;
   input.open(filename);
@@ -223,7 +260,7 @@ int Enigma::checkRotorPositionsConfig(const char* filename){
     return NO_ROTOR_STARTING_POSITION;
   }
 
-  cout << "Rotor positions config correct!" << endl;
+  //cout << "Rotor positions config correct!" << endl;
   input.close();
   return NO_ERROR;
 
@@ -231,7 +268,7 @@ int Enigma::checkRotorPositionsConfig(const char* filename){
 
 int Enigma::checkRotorConfig(const char* filename){
 
-  cout << "Checking rotor config..." << endl;
+  //cout << "Checking rotor config..." << endl;
 
   ifstream input;
   input.open(filename);
@@ -257,7 +294,7 @@ int Enigma::checkRotorConfig(const char* filename){
   input.close();
 
   for(int i = 0; i < count; i++){
-    cout << temp_storage[i] << endl; //Print array
+    //cout << temp_storage[i] << endl; //Print array
   }
 
   //Checking for INVALID_ROTOR_MAPPING
@@ -278,6 +315,6 @@ int Enigma::checkRotorConfig(const char* filename){
     }
   }
 
-  cout << "Rotor config correct!" << endl;
+  //cout << "Rotor config correct!" << endl;
   return NO_ERROR;
 }

@@ -25,8 +25,7 @@ public:
     else if (argc >= 5){ //At least one rotor
 
       number_rotors = argc - 4;
-      cout << endl << "Number of rotors: " << number_rotors << endl;
-      int argc_temp = argc - 2;
+      //cout << endl << "Number of rotors: " << number_rotors << endl;
 
       //Creating dynamic array for the rotors
       this->rotor_array = new Rotor[number_rotors];
@@ -36,34 +35,7 @@ public:
         rotor_array[i] = Rotor();
       }
 
-      //All checks
-      //checkPlugboardConfig(argv[1]); // Plugboard
-      //checkReflectorConfig(argv[2]); // Reflector
-      for (int i = 0; i < number_rotors; i++){ // Rotors
-        cout << endl << "Checking config for rotor " << i << " with argc " << argc_temp << endl;
-        //if(checkRotorConfig(argv[argc_temp]) != 0) break;
-        argc_temp--;
-      }
-      //checkRotorPositionsConfig(argv[argc - 1]); // Rotorpositions
-
-      argc_temp = argc - 2;
-      // Load the rotor config in each rotor
-      for (int i = 0; i < number_rotors; i++){
-        cout << endl << "Loading config for rotor " << i << " with argc " << argc_temp << endl;
-        rotor_array[i].loadRotor(argv[argc_temp]);
-        argc_temp--;
-      }
-
-      // Load the rotor poitions in each rotor
-      for (int i = number_rotors-1; i >= 0; i--){
-        rotor_array[i].loadRotorPosition(argv[argc - 1], i, number_rotors);
-      }
     }
-
-    plugboard.loadPlugboard(argv[1]);
-    reflector.loadReflector(argv[2]);
-
-    cout << endl << "Start of encryption:" << endl << endl;
   }
 
   ~Enigma(){
@@ -74,6 +46,7 @@ public:
   int checkReflectorConfig(const char* filename);
   int checkRotorPositionsConfig(const char* filename);
   int checkRotorConfig(const char* filename);
+  int config(int argc, char** argv);
   char encode(char c);
   char runRotors(char c);
   char runRotorsBack(char c);

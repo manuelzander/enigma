@@ -24,7 +24,7 @@ char Plugboard::runPlugboard(char c){
 
 void Plugboard::loadPlugboard(const char* filename){
 
-  cout << endl << "Loading plugboard config..." << endl;
+  //cout << endl << "Loading plugboard config..." << endl;
 
   ifstream input;
   input.open(filename);
