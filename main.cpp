@@ -35,7 +35,7 @@ int main(int argc, char** argv){
     }
   }*/
 
-  //string input = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+  //input = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
   string encoded_message = "";
   cout << endl << "Test Input: " << input << endl;
 
@@ -74,10 +74,10 @@ int main(int argc, char** argv){
   }
 
   for(int i=0; i<input.length(); i++){
-    //encoded_message += enig.encode(input.at(i));
+    encoded_message += enig.encode(input.at(i));
   }
 
-  //cout << endl << "Test Output: " << encoded_message;
+  cout << endl << "Test Output: " << encoded_message;
 
   cout << endl << endl  << "END of main function." << endl;
 

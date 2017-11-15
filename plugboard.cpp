@@ -99,7 +99,6 @@ int Plugboard::checkPlugboardConfig(const char* filename){
   }
 
   cout << "Plugboard config correct!" << endl;
-
   return NO_ERROR;
 
 }

@@ -39,18 +39,19 @@ public:
       // Check the rotor config for each rotor
       for (int i = 0; i < number_rotors; i++){
         cout << endl << "Checking config for rotor " << i << " with argc " << argc_temp << endl;
-        if(rotor_array[i].checkRotorConfig(argv[argc_temp]) != 0) break;
+        //if(rotor_array[i].checkRotorConfig(argv[argc_temp]) != 0) break;
         argc_temp--;
       }
 
       argc_temp = argc - 2;
-
       // Load the rotor config in each rotor
       for (int i = 0; i < number_rotors; i++){
         cout << endl << "Loading config for rotor " << i << " with argc " << argc_temp << endl;
         rotor_array[i].loadRotor(argv[argc_temp]);
         argc_temp--;
       }
+
+      //checkRotorPositionsConfig(argv[argc - 1]);
 
       // Load the rotor poitions in each rotor
       for (int i = number_rotors-1; i >= 0; i--){
@@ -71,6 +72,7 @@ public:
     delete [] rotor_array; //Free memory
   }
 
+  int checkRotorPositionsConfig(const char* filename);
   char encode(char c);
   char runRotors(char c);
   char runRotorsBack(char c);

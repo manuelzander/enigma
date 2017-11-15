@@ -68,17 +68,16 @@ void Rotor::loadRotor(const char* filename){
   }
 
   input.close();
-
 }
 
-int Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_rotors){
+void Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_rotors){
 
   cout << endl << "Loading rotor positions for rotor " << rotor_id << "..."<< endl;
 
   ifstream input;
   input.open(filename);
-  int input_int, counter;
-  counter = 0;
+  int input_int;
+  //int counter = 0;
   input >> input_int;
 
   for (int i = number_rotors-1; !input.eof(); i--){
@@ -86,19 +85,10 @@ int Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_roto
       rotation = input_int;
     }
     input >> input_int;
-    counter ++;
+    //counter ++;
   }
 
-if (counter < number_rotors){
-  cerr << "Not enough starting positions specified! (8)" << endl;
-  //exit(NO_ROTOR_STARTING_POSITION);
-  return NO_ROTOR_STARTING_POSITION;
-}
-
   input.close();
-
-  return NO_ERROR;
-
 }
 
 int Rotor::checkRotorConfig(const char* filename){
@@ -151,65 +141,9 @@ int Rotor::checkRotorConfig(const char* filename){
   }
 
   cout << "Rotor config correct!" << endl;
-
   return NO_ERROR;
-
 }
 
-int Rotor::checkRotorPositionsConfig(const char* filename){
-
-  cout << "Checking rotor positions config..." << endl;
-
-  ifstream input;
-  input.open(filename);
-
-  int input_int;
-  int count = 0;
-  int temp_storage[ROTOR_MAP_SIZE + MAX_NOTCHES];
-
-  input >> input_int;
-
-  while (!input.eof()){
-    temp_storage[count] = input_int;
-    count++;
-    input >> input_int;
-
-    //Checking for NON_NUMERIC_CHARACTER
-    if (!input.good() && !input.eof()){
-      cerr << "You provided a non-numeric rotor parameter! (4)" << endl;
-      return NON_NUMERIC_CHARACTER;
-    }
-	}
-
-  input.close();
-
-  for(int i = 0; i < count; i++){
-    cout << temp_storage[i] << endl; //Print array
-  }
-
-  //Checking for INVALID_ROTOR_MAPPING
-  for(int i = 0; i < ROTOR_MAP_SIZE; i++){
-    for(int j = i+1; j < ROTOR_MAP_SIZE; j++){
-      if (temp_storage[i] == temp_storage[j]){
-        cerr << "You provided an invalid rotor mapping! (7)" << endl;
-        return INVALID_ROTOR_MAPPING;
-      }
-    }
-  }
-
-  //Checking for INVALID_INDEX
-  for(int i = 0; i < count; i++){
-    if(temp_storage[i] < 0 || temp_storage[i] > 25){
-      cerr << "You provided an invalid index! (3)" << endl;
-      return INVALID_INDEX;
-    }
-  }
-
-  cout << "Rotor positions config correct!" << endl;
-
-  return NO_ERROR;
-
-}
 
 void Rotor::turn(){
 

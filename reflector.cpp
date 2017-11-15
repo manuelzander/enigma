@@ -98,7 +98,6 @@ int Reflector::checkReflectorConfig(const char* filename){
   }
 
   cout << "Reflector config correct!" << endl;
-
   return NO_ERROR;
 
 }

@@ -65,3 +65,46 @@ char Enigma::encode(char c){
 
   return c + 65; //Convert from 0 based alphabet to ASCII
 }
+
+int Enigma::checkRotorPositionsConfig(const char* filename){
+
+  cout << "Checking rotor positions config..." << endl;
+
+  ifstream input;
+  input.open(filename);
+
+  int input_int;
+  int count = 0;
+
+  input >> input_int;
+
+  while (!input.eof()){
+
+    //Checking for INVALID_INDEX
+    if(input_int < 0 || input_int > 25){
+      cerr << "You provided an invalid index! (3)" << endl;
+      return INVALID_INDEX;
+    }
+
+    //Checking for NON_NUMERIC_CHARACTER
+    if (!input.good() && !input.eof()){
+      cerr << "You provided a non-numeric rotor position parameter! (4)" << endl;
+      return NON_NUMERIC_CHARACTER;
+    }
+
+    count++;
+    input >> input_int;
+
+  }
+
+  if (count < number_rotors){
+    cerr << "Not enough starting positions specified! (8)" << endl;
+    //exit(NO_ROTOR_STARTING_POSITION);
+    return NO_ROTOR_STARTING_POSITION;
+  }
+
+  cout << "Rotor positions config correct!" << endl;
+  input.close();
+  return NO_ERROR;
+
+}
