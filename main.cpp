@@ -22,7 +22,7 @@ int main(int argc, char** argv){
 
   string input;
   //int counter = 0;
-  //char c;
+  char c;
 
   /*while((cin >> ws >> c) && counter < MAX_MESSAGE_LEGTH){
     if(c < 'A' || c > 'Z'){
@@ -36,8 +36,8 @@ int main(int argc, char** argv){
   }*/
 
   //input = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-  string encoded_message = "";
-  cout << endl << "Test Input: " << input << endl;
+  //string encoded_message = "";
+  //cout << endl << "Test Input: " << input << endl;
 
   //Create global checking functions
   //Do the checking here, not it in the Constructor for Enigma class
@@ -45,17 +45,18 @@ int main(int argc, char** argv){
 
   Enigma enig (argc, argv);
 
-  /*while((cin >> ws >> c) && counter < MAX_MESSAGE_LEGTH){
+  cin >> ws >> c;
+  while(cin.good()){
     if(c < 'A' || c > 'Z'){
       cerr << "You input an invalid input character! (2)" << endl;
       return INVALID_INPUT_CHARACTER;
     } else if(c >= 'A' && c <= 'Z'){
-      cout << endl << enig.encode(c) << endl << endl;
-      counter++;
+      cout << enig.encode(c);
     }
-  }*/
+    cin >> ws >> c;
+  }
 
-  while(cin >> ws >> input){
+  /*while(cin >> ws >> input){
 
     for(int i=0; i<input.length(); i++){
       if(input.at(i) < 'A' || input.at(i) > 'Z'){
@@ -71,15 +72,13 @@ int main(int argc, char** argv){
     cout << endl << "Test Output: " << encoded_message << endl << endl << "Another input:" << endl << endl;
     input = "";
     encoded_message = "";
-  }
+  }*/
 
-  for(int i=0; i<input.length(); i++){
+  /*for(int i=0; i<input.length(); i++){
     encoded_message += enig.encode(input.at(i));
-  }
+  }*/
 
-  cout << endl << "Test Output: " << encoded_message;
-
-  cout << endl << endl  << "END of main function." << endl;
+  //cout << endl << "Test Output: " << encoded_message;
 
   return NO_ERROR;
 

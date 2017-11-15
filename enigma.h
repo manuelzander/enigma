@@ -36,12 +36,15 @@ public:
         rotor_array[i] = Rotor();
       }
 
-      // Check the rotor config for each rotor
-      for (int i = 0; i < number_rotors; i++){
+      //All checks
+      //checkPlugboardConfig(argv[1]); // Plugboard
+      //checkReflectorConfig(argv[2]); // Reflector
+      for (int i = 0; i < number_rotors; i++){ // Rotors
         cout << endl << "Checking config for rotor " << i << " with argc " << argc_temp << endl;
-        //if(rotor_array[i].checkRotorConfig(argv[argc_temp]) != 0) break;
+        //if(checkRotorConfig(argv[argc_temp]) != 0) break;
         argc_temp--;
       }
+      //checkRotorPositionsConfig(argv[argc - 1]); // Rotorpositions
 
       argc_temp = argc - 2;
       // Load the rotor config in each rotor
@@ -51,28 +54,26 @@ public:
         argc_temp--;
       }
 
-      //checkRotorPositionsConfig(argv[argc - 1]);
-
       // Load the rotor poitions in each rotor
       for (int i = number_rotors-1; i >= 0; i--){
         rotor_array[i].loadRotorPosition(argv[argc - 1], i, number_rotors);
       }
     }
 
-    //plugboard.checkPlugboardConfig(argv[1]);
     plugboard.loadPlugboard(argv[1]);
-    //reflector.checkReflectorConfig(argv[2]);
     reflector.loadReflector(argv[2]);
 
     cout << endl << "Start of encryption:" << endl << endl;
-
   }
 
   ~Enigma(){
     delete [] rotor_array; //Free memory
   }
 
+  int checkPlugboardConfig(const char* filename);
+  int checkReflectorConfig(const char* filename);
   int checkRotorPositionsConfig(const char* filename);
+  int checkRotorConfig(const char* filename);
   char encode(char c);
   char runRotors(char c);
   char runRotorsBack(char c);

@@ -9,12 +9,12 @@ using namespace std;
 
 void Enigma::turnRotors(){
 
-  cout << endl << "Turn rotor 0" << endl;
+  //cout << endl << "Turn rotor 0" << endl;
   rotor_array[0].turn();
 
   for(int i = 0; i < number_rotors; i++) {
 		if(rotor_array[i].testForNotch() == true && number_rotors > i+1) {
-      cout << endl << "Notch hit, turn rotor " << i + 1 << endl;
+      //cout << endl << "Notch hit, turn rotor " << i + 1 << endl;
 			rotor_array[i+1].turn();
 		} else{
       break;
@@ -66,6 +66,126 @@ char Enigma::encode(char c){
   return c + 65; //Convert from 0 based alphabet to ASCII
 }
 
+int Enigma::checkPlugboardConfig(const char* filename){
+
+  cout << "Checking plugboard config..." << endl;
+
+  ifstream input;
+  input.open(filename);
+
+  int input_int;
+  int count = 0;
+  int temp_storage[ALPHABET_SIZE];
+
+  input >> input_int;
+
+  while (!input.eof()){
+    temp_storage[count] = input_int;
+    count++;
+    input >> input_int;
+
+    //Checking for NON_NUMERIC_CHARACTER
+    if (!input.good() && !input.eof()){
+      cerr << "You provided a non-numeric plugboard parameter! (4)" << endl;
+      return NON_NUMERIC_CHARACTER;
+    }
+	}
+
+  input.close();
+
+  for(int i = 0; i < count; i++){
+    cout << temp_storage[i] << endl; //Print array
+  }
+
+  //Checking for IMPOSSIBLE_PLUGBOARD_CONFIGURATION
+  for(int i = 0; i < count; i++){
+    for(int j = i+1; j < count; j++){
+      if (temp_storage[i] == temp_storage[j]){
+        cerr << "You provided an invalid plugboard configuration! (5)" << endl;
+        return IMPOSSIBLE_PLUGBOARD_CONFIGURATION;
+      }
+    }
+  }
+
+  //Checking for INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS
+  if (count%2 != 0){
+    cerr << "You provided an incorrect number of plugboard parameters! (6)" << endl;
+    return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
+  }
+
+  //Checking for INVALID_INDEX
+  for(int i = 0; i < count; i++){
+    if(temp_storage[i] < 0 || temp_storage[i] > 25){
+      cerr << "You provided an invalid index! (3)" << endl;
+      return INVALID_INDEX;
+    }
+  }
+
+  cout << "Plugboard config correct!" << endl;
+  return NO_ERROR;
+
+}
+
+int Enigma::checkReflectorConfig(const char* filename){
+
+  cout << "Checking reflector config..." << endl;
+
+  ifstream input;
+  input.open(filename);
+
+  int input_int;
+  int count = 0;
+  int temp_storage[ALPHABET_SIZE];
+
+  input >> input_int;
+
+  while (!input.eof()){
+    temp_storage[count] = input_int;
+    count++;
+    input >> input_int;
+
+    //Checking for NON_NUMERIC_CHARACTER
+    if (!input.good() && !input.eof()){
+      cerr << "You provided a non-numeric reflector parameter! (4)" << endl;
+      return NON_NUMERIC_CHARACTER;
+    }
+	}
+
+  input.close();
+
+  for(int i = 0; i < ALPHABET_SIZE; i++){
+    cout << temp_storage[i] << endl; //Print array
+  }
+
+  //Checking for INVALID_REFLECTOR_MAPPING
+  for(int i = 0; i < count; i++){
+    for(int j = i+1; j < count; j++){
+      if (temp_storage[i] == temp_storage[j]){
+        cerr << "You provided an invalid reflector configuration! (9)" << endl;
+        return INVALID_REFLECTOR_MAPPING;
+      }
+    }
+  }
+
+  //Checking for INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS
+  if (count/2 != 13){
+    cerr << "You provided an incorrect number of reflector parameter pairs! (10)" << endl;
+    return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
+  }
+
+  //Checking for INVALID_INDEX
+  for(int i = 0; i < count; i++){
+    if(temp_storage[i] < 0 || temp_storage[i] > 25){
+      cerr << "You provided an invalid index! (3)" << endl;
+      return INVALID_INDEX;
+    }
+  }
+
+  cout << "Reflector config correct!" << endl;
+  return NO_ERROR;
+
+}
+
 int Enigma::checkRotorPositionsConfig(const char* filename){
 
   cout << "Checking rotor positions config..." << endl;
@@ -107,4 +227,57 @@ int Enigma::checkRotorPositionsConfig(const char* filename){
   input.close();
   return NO_ERROR;
 
+}
+
+int Enigma::checkRotorConfig(const char* filename){
+
+  cout << "Checking rotor config..." << endl;
+
+  ifstream input;
+  input.open(filename);
+
+  int input_int;
+  int count = 0;
+  int temp_storage[ROTOR_MAP_SIZE + MAX_NOTCHES];
+
+  input >> input_int;
+
+  while (!input.eof()){
+    temp_storage[count] = input_int;
+    count++;
+    input >> input_int;
+
+    //Checking for NON_NUMERIC_CHARACTER
+    if (!input.good() && !input.eof()){
+      cerr << "You provided a non-numeric rotor parameter! (4)" << endl;
+      return NON_NUMERIC_CHARACTER;
+    }
+	}
+
+  input.close();
+
+  for(int i = 0; i < count; i++){
+    cout << temp_storage[i] << endl; //Print array
+  }
+
+  //Checking for INVALID_ROTOR_MAPPING
+  for(int i = 0; i < ROTOR_MAP_SIZE; i++){
+    for(int j = i+1; j < ROTOR_MAP_SIZE; j++){
+      if (temp_storage[i] == temp_storage[j]){
+        cerr << "You provided an invalid rotor mapping! (7)" << endl;
+        return INVALID_ROTOR_MAPPING;
+      }
+    }
+  }
+
+  //Checking for INVALID_INDEX
+  for(int i = 0; i < count; i++){
+    if(temp_storage[i] < 0 || temp_storage[i] > 25){
+      cerr << "You provided an invalid index! (3)" << endl;
+      return INVALID_INDEX;
+    }
+  }
+
+  cout << "Rotor config correct!" << endl;
+  return NO_ERROR;
 }

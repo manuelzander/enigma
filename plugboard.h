@@ -19,7 +19,6 @@ public:
     }
   }
 
-	int checkPlugboardConfig(const char* filename);
   void loadPlugboard(const char* filename);
   char runPlugboard(char c);
 };
