@@ -123,8 +123,8 @@ int Enigma::checkPlugboardConfig(const char* filename){
 
     //Checking for NON_NUMERIC_CHARACTER
     if (!input.good() && !input.eof()){
-      cerr << "You provided a non-numeric plugboard parameter! (4)" << endl;
-      return NON_NUMERIC_CHARACTER;
+      //cerr << "You provided a non-numeric plugboard parameter! (4)" << endl;
+      return NON_NUMERIC_CHARACTER_PLUGBOARD;
     }
 	}
 
@@ -138,7 +138,7 @@ int Enigma::checkPlugboardConfig(const char* filename){
   for(int i = 0; i < count; i++){
     for(int j = i+1; j < count; j++){
       if (temp_storage[i] == temp_storage[j]){
-        cerr << "You provided an invalid plugboard configuration! (5)" << endl;
+        //cerr << "You provided an invalid plugboard configuration! (5)" << endl;
         return IMPOSSIBLE_PLUGBOARD_CONFIGURATION;
       }
     }
@@ -146,14 +146,14 @@ int Enigma::checkPlugboardConfig(const char* filename){
 
   //Checking for INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS
   if (count%2 != 0){
-    cerr << "You provided an incorrect number of plugboard parameters! (6)" << endl;
+    //cerr << "You provided an incorrect number of plugboard parameters! (6)" << endl;
     return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
   }
 
   //Checking for INVALID_INDEX
   for(int i = 0; i < count; i++){
     if(temp_storage[i] < 0 || temp_storage[i] > 25){
-      cerr << "You provided an invalid index! (3)" << endl;
+      //cerr << "You provided an invalid index! (3)" << endl;
       return INVALID_INDEX;
     }
   }
@@ -183,8 +183,8 @@ int Enigma::checkReflectorConfig(const char* filename){
 
     //Checking for NON_NUMERIC_CHARACTER
     if (!input.good() && !input.eof()){
-      cerr << "You provided a non-numeric reflector parameter! (4)" << endl;
-      return NON_NUMERIC_CHARACTER;
+      //cerr << "You provided a non-numeric reflector parameter! (4)" << endl;
+      return NON_NUMERIC_CHARACTER_REFLECTOR;
     }
 	}
 
@@ -198,7 +198,7 @@ int Enigma::checkReflectorConfig(const char* filename){
   for(int i = 0; i < count; i++){
     for(int j = i+1; j < count; j++){
       if (temp_storage[i] == temp_storage[j]){
-        cerr << "You provided an invalid reflector configuration! (9)" << endl;
+        //cerr << "You provided an invalid reflector configuration! (9)" << endl;
         return INVALID_REFLECTOR_MAPPING;
       }
     }
@@ -206,14 +206,18 @@ int Enigma::checkReflectorConfig(const char* filename){
 
   //Checking for INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS
   if (count/2 != 13){
-    cerr << "You provided an incorrect number of reflector parameter pairs! (10)" << endl;
+    //cerr << "You provided an incorrect number of reflector parameter pairs! (10)" << endl;
     return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
+  }
+
+  if (count/2 != 13 && count%2 != 0){
+    return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD;
   }
 
   //Checking for INVALID_INDEX
   for(int i = 0; i < count; i++){
     if(temp_storage[i] < 0 || temp_storage[i] > 25){
-      cerr << "You provided an invalid index! (3)" << endl;
+      //cerr << "You provided an invalid index! (3)" << endl;
       return INVALID_INDEX;
     }
   }
@@ -239,14 +243,14 @@ int Enigma::checkRotorPositionsConfig(const char* filename){
 
     //Checking for INVALID_INDEX
     if(input_int < 0 || input_int > 25){
-      cerr << "You provided an invalid index! (3)" << endl;
+      //cerr << "You provided an invalid index! (3)" << endl;
       return INVALID_INDEX;
     }
 
     //Checking for NON_NUMERIC_CHARACTER
     if (!input.good() && !input.eof()){
-      cerr << "You provided a non-numeric rotor position parameter! (4)" << endl;
-      return NON_NUMERIC_CHARACTER;
+      //cerr << "You provided a non-numeric rotor position parameter! (4)" << endl;
+      return NON_NUMERIC_CHARACTER_POSITIONS;
     }
 
     count++;
@@ -255,7 +259,7 @@ int Enigma::checkRotorPositionsConfig(const char* filename){
   }
 
   if (count < number_rotors){
-    cerr << "Not enough starting positions specified! (8)" << endl;
+    //cerr << "Not enough starting positions specified! (8)" << endl;
     //exit(NO_ROTOR_STARTING_POSITION);
     return NO_ROTOR_STARTING_POSITION;
   }
@@ -286,8 +290,8 @@ int Enigma::checkRotorConfig(const char* filename){
 
     //Checking for NON_NUMERIC_CHARACTER
     if (!input.good() && !input.eof()){
-      cerr << "You provided a non-numeric rotor parameter! (4)" << endl;
-      return NON_NUMERIC_CHARACTER;
+      //cerr << "You provided a non-numeric rotor parameter! (4)" << endl;
+      return NON_NUMERIC_CHARACTER_ROTOR;
     }
 	}
 
@@ -297,11 +301,16 @@ int Enigma::checkRotorConfig(const char* filename){
     //cout << temp_storage[i] << endl; //Print array
   }
 
+  if (count < ROTOR_MAP_SIZE){
+    //cerr << "You provided an incorrect number of plugboard parameters! (6)" << endl;
+    return INVALID_ROTOR_MAPPING_NOT_ENOUGH_PARAMETERS;
+  }
+
   //Checking for INVALID_ROTOR_MAPPING
   for(int i = 0; i < ROTOR_MAP_SIZE; i++){
     for(int j = i+1; j < ROTOR_MAP_SIZE; j++){
       if (temp_storage[i] == temp_storage[j]){
-        cerr << "You provided an invalid rotor mapping! (7)" << endl;
+        //cerr << "You provided an invalid rotor mapping! (7)" << endl;
         return INVALID_ROTOR_MAPPING;
       }
     }
@@ -310,11 +319,76 @@ int Enigma::checkRotorConfig(const char* filename){
   //Checking for INVALID_INDEX
   for(int i = 0; i < count; i++){
     if(temp_storage[i] < 0 || temp_storage[i] > 25){
-      cerr << "You provided an invalid index! (3)" << endl;
+      //cerr << "You provided an invalid index! (3)" << endl;
       return INVALID_INDEX;
     }
   }
 
   //cout << "Rotor config correct!" << endl;
   return NO_ERROR;
+}
+
+int Enigma::printErrorMessage(int code){
+
+  switch(code) {
+
+  	case INVALID_INDEX:
+      cerr << "Provided an invalid index (< 0 or >25)";
+      return INVALID_INDEX;
+
+  	case IMPOSSIBLE_PLUGBOARD_CONFIGURATION:
+      cerr << "Invalid plugboard configuration";
+      return IMPOSSIBLE_PLUGBOARD_CONFIGURATION;
+
+  	case INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS:
+      cerr << "Incorrect number of parameters in plugboard file plugboard.pb";
+      return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
+
+  	case INVALID_ROTOR_MAPPING:
+      cerr << "Invalid mapping of input";
+      return INVALID_ROTOR_MAPPING;
+
+  	case NO_ROTOR_STARTING_POSITION:
+      cerr << "Not enough rotor starting positions specified";
+      return NO_ROTOR_STARTING_POSITION;
+
+    case INVALID_REFLECTOR_MAPPING:
+      cerr << "Invalid mapping of reflector";
+      return INVALID_REFLECTOR_MAPPING;
+
+  	case INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS:
+      cerr << "Insufficient number of mappings in reflector file: reflector.rf";
+      return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
+
+  	case ERROR_OPENING_CONFIGURATION_FILE:
+      cerr << "Error while opening configuration file";
+      return ERROR_OPENING_CONFIGURATION_FILE;
+
+    case NON_NUMERIC_CHARACTER_PLUGBOARD:
+      cerr << "Non-numeric character in plugboard file plugboard.pb";
+      return NON_NUMERIC_CHARACTER;
+
+    case NON_NUMERIC_CHARACTER_REFLECTOR:
+      cerr << "Non-numeric character in reflector file reflector.rf";
+      return NON_NUMERIC_CHARACTER;
+
+    case NON_NUMERIC_CHARACTER_ROTOR:
+      cerr << "Non-numeric character for mapping in rotor file rotor.rot";
+      return NON_NUMERIC_CHARACTER;
+
+    case NON_NUMERIC_CHARACTER_POSITIONS:
+      cerr << "Non-numeric character in rotor positions file rotor.pos";
+      return NON_NUMERIC_CHARACTER;
+
+    case INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD:
+      cerr << "Incorrect (odd) number of parameters in reflector file reflector.rf";
+      return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
+
+    case INVALID_ROTOR_MAPPING_NOT_ENOUGH_PARAMETERS:
+      cerr << "Not all inputs mapped in rotor file: rotor.rot";
+      return INVALID_ROTOR_MAPPING;
+  	}
+
+    return NO_ERROR;
+
 }

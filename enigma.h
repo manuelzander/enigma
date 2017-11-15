@@ -46,6 +46,7 @@ public:
   int checkReflectorConfig(const char* filename);
   int checkRotorPositionsConfig(const char* filename);
   int checkRotorConfig(const char* filename);
+  int printErrorMessage(int code);
   int config(int argc, char** argv);
   char encode(char c);
   char runRotors(char c);

@@ -12,14 +12,15 @@ int main(int argc, char** argv){
 
   // Check for INSUFFICIENT_NUMBER_OF_PARAMETERS
   if(argc < 3) {
-    cerr << "You provided an insufficient number of parameters! (1)" << endl;
+    //cerr << "You provided an insufficient number of parameters! (1)" << endl;
+    cerr << "usage: enigma plugboard-file reflector-file (<rotor-file>* rotor-positions)?";
     return INSUFFICIENT_NUMBER_OF_PARAMETERS;
 	}
 
   Enigma enig (argc, argv);
 
   if (enig.config(argc, argv) != 0){
-    return enig.config(argc, argv);
+    return enig.printErrorMessage(enig.config(argc, argv));
   }
 
   //cout  << endl << "Please type your message:" << endl
@@ -53,7 +54,7 @@ int main(int argc, char** argv){
   cin >> ws >> c;
   while(cin.good()){
     if(c < 'A' || c > 'Z'){
-      cerr << "You input an invalid input character! (2)" << endl;
+      cerr << "Invalid input character";
       return INVALID_INPUT_CHARACTER;
     } else if(c >= 'A' && c <= 'Z'){
       cout << enig.encode(c);
