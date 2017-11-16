@@ -11,6 +11,7 @@ Plugboard::Plugboard(){ //Constructor
   for (int i = 0; i < ALPHABET_SIZE; i++){
     plugboardconfig[i] = 0;
   }
+  number_count = 0;
 }
 
 char Plugboard::runPlugboard(char c){
@@ -34,7 +35,6 @@ void Plugboard::loadPlugboard(const char* filename){
   input.open(filename);
 
   int input_int;
-
   input >> input_int;
 
   while (!input.eof()){
@@ -43,6 +43,11 @@ void Plugboard::loadPlugboard(const char* filename){
     input >> input_int;
 	}
 
-  input.close();
+  /*if(number_count == 0){
+    cout << "Empty plugboard" << endl;
+  }else{
+    cout << "Number count: " << number_count << endl;
+  }*/
 
+  input.close();
 }
