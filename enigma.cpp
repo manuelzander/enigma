@@ -7,11 +7,9 @@
 
 using namespace std;
 
-Enigma::Enigma(int argc, char** argv){ //Constructor --> Move into enigma.cpp
-  if (argc == 3){ //No rotor at all
-    number_rotors = 0;
-  }
-  else if (argc >= 5){ //At least one rotor
+Enigma::Enigma(int argc, char** argv): number_rotors(0), rotor_array(NULL) { //Constructor --> Move into enigma.cpp
+  
+  if (argc >= 5){ //At least one rotor
 
     number_rotors = argc - 4;
 
