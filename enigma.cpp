@@ -134,6 +134,10 @@ int Enigma::checkPlugboardConfig(const char* filename){
     //cout << temp_storage[i] << endl; //Print array
   }
 
+  if (count > 26){
+    return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS_ODD;
+  }
+
   //Checking for IMPOSSIBLE_PLUGBOARD_CONFIGURATION
   for(int i = 0; i < count; i++){
     for(int j = i+1; j < count; j++){
@@ -194,6 +198,11 @@ int Enigma::checkReflectorConfig(const char* filename){
     //cout << temp_storage[i] << endl; //Print array
   }
 
+  //Checking for INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD
+  if (count/2 != 13 && count%2 != 0){
+    return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD;
+  }
+
   //Checking for INVALID_REFLECTOR_MAPPING
   for(int i = 0; i < count; i++){
     for(int j = i+1; j < count; j++){
@@ -206,12 +215,7 @@ int Enigma::checkReflectorConfig(const char* filename){
 
   //Checking for INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS
   if (count/2 != 13){
-    //cerr << "You provided an incorrect number of reflector parameter pairs! (10)" << endl;
     return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
-  }
-
-  if (count/2 != 13 && count%2 != 0){
-    return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD;
   }
 
   //Checking for INVALID_INDEX
@@ -333,59 +337,63 @@ int Enigma::printErrorMessage(int code){
   switch(code) {
 
   	case INVALID_INDEX:
-      cerr << "Provided an invalid index (< 0 or >25)";
+      cerr << "Provided an invalid index (< 0 or >25)" << endl;
       return INVALID_INDEX;
 
   	case IMPOSSIBLE_PLUGBOARD_CONFIGURATION:
-      cerr << "Invalid plugboard configuration";
+      cerr << "Invalid plugboard configuration" << endl;
       return IMPOSSIBLE_PLUGBOARD_CONFIGURATION;
 
   	case INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS:
-      cerr << "Incorrect number of parameters in plugboard file plugboard.pb";
+      cerr << "Incorrect number of parameters in plugboard file plugboard.pb" << endl;
+      return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
+
+    case INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS_ODD:
+      cerr << "Incorrect number of parameters in plugboard file plugboard.pb" << endl;
       return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
 
   	case INVALID_ROTOR_MAPPING:
-      cerr << "Invalid mapping of input";
+      cerr << "Invalid mapping of input" << endl;
       return INVALID_ROTOR_MAPPING;
 
   	case NO_ROTOR_STARTING_POSITION:
-      cerr << "Not enough rotor starting positions specified";
+      cerr << "No starting position for rotor 0 in rotor position file: rotor.pos" << endl;
       return NO_ROTOR_STARTING_POSITION;
 
     case INVALID_REFLECTOR_MAPPING:
-      cerr << "Invalid mapping of reflector";
+      cerr << "Invalid mapping of reflector" << endl;
       return INVALID_REFLECTOR_MAPPING;
 
   	case INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS:
-      cerr << "Insufficient number of mappings in reflector file: reflector.rf";
+      cerr << "Insufficient number of mappings in reflector file: reflector.rf" << endl;
+      return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
+
+    case INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD:
+      cerr << "Incorrect (odd) number of parameters in reflector file reflector.rf" << endl;
       return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
 
   	case ERROR_OPENING_CONFIGURATION_FILE:
-      cerr << "Error while opening configuration file";
+      cerr << "Error while opening configuration file" << endl;
       return ERROR_OPENING_CONFIGURATION_FILE;
 
     case NON_NUMERIC_CHARACTER_PLUGBOARD:
-      cerr << "Non-numeric character in plugboard file plugboard.pb";
+      cerr << "Non-numeric character in plugboard file plugboard.pb" << endl;
       return NON_NUMERIC_CHARACTER;
 
     case NON_NUMERIC_CHARACTER_REFLECTOR:
-      cerr << "Non-numeric character in reflector file reflector.rf";
+      cerr << "Non-numeric character in reflector file reflector.rf" << endl;
       return NON_NUMERIC_CHARACTER;
 
     case NON_NUMERIC_CHARACTER_ROTOR:
-      cerr << "Non-numeric character for mapping in rotor file rotor.rot";
+      cerr << "Non-numeric character for mapping in rotor file rotor.rot" << endl;
       return NON_NUMERIC_CHARACTER;
 
     case NON_NUMERIC_CHARACTER_POSITIONS:
-      cerr << "Non-numeric character in rotor positions file rotor.pos";
+      cerr << "Non-numeric character in rotor positions file rotor.pos" << endl;
       return NON_NUMERIC_CHARACTER;
 
-    case INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD:
-      cerr << "Incorrect (odd) number of parameters in reflector file reflector.rf";
-      return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
-
     case INVALID_ROTOR_MAPPING_NOT_ENOUGH_PARAMETERS:
-      cerr << "Not all inputs mapped in rotor file: rotor.rot";
+      cerr << "Not all inputs mapped in rotor file: rotor.rot" << endl;
       return INVALID_ROTOR_MAPPING;
   	}
 

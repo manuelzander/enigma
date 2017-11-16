@@ -50,11 +50,11 @@ int main(int argc, char** argv){
   // If return value x > 0, return x, otherwise create the Enigma machine an run encryption
 
   char c;
-
   cin >> ws >> c;
+  
   while(cin.good()){
     if(c < 'A' || c > 'Z'){
-      cerr << "Invalid input character";
+      cerr << c << " is not a valid input character (input characters must be upper case letters A-Z)!";
       return INVALID_INPUT_CHARACTER;
     } else if(c >= 'A' && c <= 'Z'){
       cout << enig.encode(c);
