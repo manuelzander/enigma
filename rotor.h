@@ -15,18 +15,7 @@ private:
   int rotation;
 
 public:
-  Rotor(){
-    for (int i = 0; i < ROTOR_MAP_SIZE; i++){
-      rotorconfig[i] = 0;
-    }
-    for (int i = 0; i < MAX_NOTCHES; i++){
-      notchconfig[i] = 0;
-    }
-
-    rotation = 0;
-    number_notches = 0;
-  }
-
+  Rotor();
   void loadRotor(const char* filename);
   void loadRotorPosition(const char* filename, int rotor_id, int number_rotors);
   char encodeChar(char c);

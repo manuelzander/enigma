@@ -13,12 +13,7 @@ private:
   int plugboardconfig[ALPHABET_SIZE];
 
 public:
-  Plugboard(){ //Constructor
-    for (int i = 0; i < ALPHABET_SIZE; i++){
-      plugboardconfig[i] = 0;
-    }
-  }
-
+  Plugboard();
   void loadPlugboard(const char* filename);
   char runPlugboard(char c);
 };

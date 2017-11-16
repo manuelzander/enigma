@@ -7,6 +7,28 @@
 
 using namespace std;
 
+Enigma::Enigma(int argc, char** argv){ //Constructor --> Move into enigma.cpp
+  if (argc == 3){ //No rotor at all
+    number_rotors = 0;
+  }
+  else if (argc >= 5){ //At least one rotor
+
+    number_rotors = argc - 4;
+
+    //Creating dynamic array for the rotors
+    this->rotor_array = new Rotor[number_rotors];
+
+    //Loading rotor objects into the dynamic array
+    for (int i = 0; i < number_rotors; i++){
+      rotor_array[i] = Rotor();
+    }
+  }
+}
+
+Enigma::~Enigma(){
+  delete [] rotor_array; //Free memory
+}
+
 void Enigma::turnRotors(){
 
   //cout << endl << "Turn rotor 0" << endl;
@@ -20,7 +42,6 @@ void Enigma::turnRotors(){
       break;
     }
 	}
-
 }
 
 char Enigma::runRotors(char c){
@@ -28,7 +49,6 @@ char Enigma::runRotors(char c){
   for(int i = 0; i < number_rotors; i++){
     c = rotor_array[i].encodeChar(c);
   }
-
   return c;
 }
 
@@ -37,7 +57,6 @@ char Enigma::runRotorsBack(char c){
   for(int i = number_rotors-1; i >= 0; i--){
     c = rotor_array[i].encodeCharBack(c);
   }
-
   return c;
 }
 
@@ -45,36 +64,31 @@ char Enigma::encode(char c){
 
   c = c - 65; //Convert from ASCII to 0 based alphabet
 
-  // 1. run of plugboard
-  c = plugboard.runPlugboard(c);
+  c = plugboard.runPlugboard(c); // 1. run of plugboard
 
-  //Forward rotor encryption
-  if (number_rotors != 0)
+  if (number_rotors != 0) //Forward rotor encryption
     this->turnRotors();
     c = this->runRotors(c);
 
-  // Reflector encryption
-	c = reflector.runReflector(c);
+	c = reflector.runReflector(c); // Reflector encryption
 
-  // Backwards rotor encryption
-  if (number_rotors != 0)
+  if (number_rotors != 0) // Backwards rotor encryption
     c = this->runRotorsBack(c);
 
-  // 2. run of plugboard
-  c = plugboard.runPlugboard(c);
+  c = plugboard.runPlugboard(c); // 2. run of plugboard
 
   return c + 65; //Convert from 0 based alphabet to ASCII
 }
 
 int Enigma::config(int argc, char** argv){
 
+  //Checking all files
   if (checkPlugboardConfig(argv[1]) != 0){
     return checkPlugboardConfig(argv[1]);
   }
   if(checkReflectorConfig(argv[2]) != 0){
     return checkReflectorConfig(argv[2]);
   }
-
   for (int i = 3; i < argc-1; i++){
     if(checkRotorConfig(argv[i]) != 0){
       return checkRotorConfig(argv[i]);
@@ -84,18 +98,14 @@ int Enigma::config(int argc, char** argv){
     return checkRotorPositionsConfig(argv[argc - 1]);
   }
 
+  //If error checks do not fail, load the configuartions into arrays
   plugboard.loadPlugboard(argv[1]);
   reflector.loadReflector(argv[2]);
-
   int argc_temp = argc - 2;
-  // Load the rotor config in each rotor
   for (int i = 0; i < number_rotors; i++){
-    //cout << endl << "Loading config for rotor " << i << " with argc " << argc_temp << endl;
     rotor_array[i].loadRotor(argv[argc_temp]);
     argc_temp--;
   }
-
-  // Load the rotor poitions in each rotor
   for (int i = number_rotors-1; i >= 0; i--){
     rotor_array[i].loadRotorPosition(argv[argc - 1], i, number_rotors);
   }

@@ -7,6 +7,12 @@
 
 using namespace std;
 
+Plugboard::Plugboard(){ //Constructor
+  for (int i = 0; i < ALPHABET_SIZE; i++){
+    plugboardconfig[i] = 0;
+  }
+}
+
 char Plugboard::runPlugboard(char c){
 
   for(int i = 0; i < number_count; i = i+2){
@@ -19,13 +25,11 @@ char Plugboard::runPlugboard(char c){
   }
 
   return c;
-
 }
 
 void Plugboard::loadPlugboard(const char* filename){
 
   //cout << endl << "Loading plugboard config..." << endl;
-
   ifstream input;
   input.open(filename);
 

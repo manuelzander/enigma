@@ -7,6 +7,12 @@
 
 using namespace std;
 
+Reflector::Reflector(){
+  for (int i = 0; i < ALPHABET_SIZE; i++){
+    reflectorconfig[i] = 0;
+  }
+}
+
 char Reflector::runReflector(char c){
 
   for(int i = 0; i < ALPHABET_SIZE; i = i+2){
@@ -24,7 +30,6 @@ char Reflector::runReflector(char c){
 void Reflector::loadReflector(const char* filename){
 
   //cout << endl << "Loading reflector config..." << endl;
-
   ifstream input;
   input.open(filename);
 

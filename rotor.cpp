@@ -7,18 +7,25 @@
 
 using namespace std;
 
+Rotor::Rotor(){
+  for (int i = 0; i < ROTOR_MAP_SIZE; i++){
+    rotorconfig[i] = 0;
+  }
+  for (int i = 0; i < MAX_NOTCHES; i++){
+    notchconfig[i] = 0;
+  }
+
+  rotation = 0;
+  number_notches = 0;
+}
 
 char Rotor::encodeChar(char c){
-
-  //cout << endl << "Rotation: " << rotation << endl;
   return (rotorconfig[(c + rotation) % ALPHABET_SIZE] - rotation + ALPHABET_SIZE) % ALPHABET_SIZE;
-
 }
 
 char Rotor::encodeCharBack(char c){
 
   c = (c + rotation) % ALPHABET_SIZE;
-
   for(int i = 0; i < ALPHABET_SIZE; i++){
     if(rotorconfig[i] == c){
       return (i - rotation + ALPHABET_SIZE) % ALPHABET_SIZE;
@@ -26,7 +33,6 @@ char Rotor::encodeCharBack(char c){
   }
 
   return c;
-
 }
 
 void Rotor::loadRotor(const char* filename){
@@ -40,32 +46,15 @@ void Rotor::loadRotor(const char* filename){
   input >> input_int;
 
   while (!input.eof()){
-
     rotorconfig[i] = input_int;
-
     //Reading in of notches
     if(i >= 26){
       notchconfig[number_notches] = input_int;
       number_notches++;
     }
-
     i++;
     input >> input_int;
 	}
-
-  //cout << endl << "Rotorconfig:" << i << endl;
-  for(int i = 0; i < ROTOR_MAP_SIZE; i++){
-
-    //cout << endl << rotorconfig[i] << endl;
-
-  }
-
-  //cout << endl << "Notchconfig:" << number_notches<< endl;
-  for(int i = 0; i < number_notches; i++){
-
-    //cout << endl << notchconfig[i] << endl;
-
-  }
 
   input.close();
 }
@@ -73,11 +62,9 @@ void Rotor::loadRotor(const char* filename){
 void Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_rotors){
 
   //cout << endl << "Loading rotor positions for rotor " << rotor_id << "..."<< endl;
-
   ifstream input;
   input.open(filename);
   int input_int;
-  //int counter = 0;
   input >> input_int;
 
   for (int i = number_rotors-1; !input.eof(); i--){
@@ -85,24 +72,19 @@ void Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_rot
       rotation = input_int;
     }
     input >> input_int;
-    //counter ++;
   }
 
   input.close();
 }
 
 void Rotor::turn(){
-
   rotation = (rotation + 1) % ALPHABET_SIZE;
-
 }
 
 bool Rotor::testForNotch(){
-
   for(int i = 0; i < number_notches; i++){
     if (notchconfig[i] == rotation)
       return true;
   }
-
   return false;
 }
