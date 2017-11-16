@@ -25,7 +25,7 @@ int main(int argc, char** argv){
 
   while(cin >> ws >> c){
     if(c < 'A' || c > 'Z'){
-      cerr << c << " is not a valid input character (input characters must be upper case letters A-Z)!";
+      cerr << c << " is not a valid input character (input characters must be upper case letters A-Z)!" << endl;
       return INVALID_INPUT_CHARACTER;
     }
     cout << enig.encode(c);

@@ -8,7 +8,7 @@
 using namespace std;
 
 Enigma::Enigma(int argc, char** argv): number_rotors(0), rotor_array(NULL) { //Constructor --> Move into enigma.cpp
-  
+
   if (argc >= 5){ //At least one rotor
 
     number_rotors = argc - 4;
@@ -207,7 +207,7 @@ int Enigma::checkReflectorConfig(const char* filename){
   }
 
   //Checking for INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD
-  if (count/2 != 13 && count%2 != 0){
+  if (static_cast<double>(count)/2 != 13 && count%2 != 0){
     return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD;
   }
 

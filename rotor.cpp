@@ -46,9 +46,10 @@ void Rotor::loadRotor(const char* filename){
   input >> input_int;
 
   while (!input.eof()){
-    rotorconfig[i] = input_int;
-    //Reading in of notches
-    if(i >= 26){
+    if (i < 26){
+      rotorconfig[i] = input_int;
+    }
+    else{ //Reading in of notches
       notchconfig[number_notches] = input_int;
       number_notches++;
     }
