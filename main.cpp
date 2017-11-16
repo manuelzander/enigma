@@ -13,7 +13,7 @@ int main(int argc, char** argv){
   // Check for INSUFFICIENT_NUMBER_OF_PARAMETERS
   if(argc < 3) {
     //cerr << "You provided an insufficient number of parameters! (1)" << endl;
-    cerr << "usage: enigma plugboard-file reflector-file (<rotor-file>* rotor-positions)?";
+    cerr << "usage: enigma plugboard-file reflector-file (<rotor-file>* rotor-positions)?" << endl;
     return INSUFFICIENT_NUMBER_OF_PARAMETERS;
 	}
 
@@ -50,16 +50,15 @@ int main(int argc, char** argv){
   // If return value x > 0, return x, otherwise create the Enigma machine an run encryption
 
   char c;
-  cin >> ws >> c;
-  
+
   while(cin.good()){
+    cin >> ws >> c;
     if(c < 'A' || c > 'Z'){
       cerr << c << " is not a valid input character (input characters must be upper case letters A-Z)!";
       return INVALID_INPUT_CHARACTER;
     } else if(c >= 'A' && c <= 'Z'){
       cout << enig.encode(c);
     }
-    cin >> ws >> c;
   }
 
   /*while(cin >> ws >> input){
