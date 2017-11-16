@@ -42,12 +42,6 @@ void Plugboard::loadPlugboard(const char* filename){
     number_count++;
     input >> input_int;
 	}
-
-  /*if(number_count == 0){
-    cout << "Empty plugboard" << endl;
-  }else{
-    cout << "Number count: " << number_count << endl;
-  }*/
-
+  
   input.close();
 }
