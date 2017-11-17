@@ -117,6 +117,9 @@ int Enigma::checkPlugboardConfig(const char* filename){
 
   ifstream input;
   input.open(filename);
+  if (input.fail()){
+    return ERROR_OPENING_CONFIGURATION_FILE;
+  }
 
   int input_int;
   int count = 0;
@@ -181,6 +184,9 @@ int Enigma::checkReflectorConfig(const char* filename){
 
   ifstream input;
   input.open(filename);
+  if (input.fail()){
+    return ERROR_OPENING_CONFIGURATION_FILE;
+  }
 
   int input_int;
   int count = 0;
@@ -245,6 +251,9 @@ int Enigma::checkRotorPositionsConfig(const char* filename){
 
   ifstream input;
   input.open(filename);
+  if (input.fail()){
+    return ERROR_OPENING_CONFIGURATION_FILE;
+  }
 
   int input_int;
   int count = 0;
@@ -288,6 +297,9 @@ int Enigma::checkRotorConfig(const char* filename){
 
   ifstream input;
   input.open(filename);
+  if (input.fail()){
+    return ERROR_OPENING_CONFIGURATION_FILE;
+  }
 
   int input_int;
   int count = 0;
