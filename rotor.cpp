@@ -14,7 +14,7 @@ Rotor::Rotor(){
   for (int i = 0; i < MAX_NOTCHES; i++){
     notchconfig[i] = 0;
   }
-
+  
   rotation = 0;
   number_notches = 0;
 }
@@ -50,8 +50,29 @@ void Rotor::loadRotor(const char* filename){
       rotorconfig[i] = input_int;
     }
     else{ //Reading in of notches
-      notchconfig[number_notches] = input_int;
-      number_notches++;
+
+      //Only add another notch, if notch not in array yet
+      bool found = false;
+
+      if (number_notches > 0){
+
+        for(int i = 0; i <= number_notches; i++){
+          if (notchconfig[i] == input_int){
+            found = true;
+            break;
+          }
+        }
+
+        if(found != true){
+          notchconfig[number_notches] = input_int;
+          number_notches++;
+      }
+
+      }else {
+        notchconfig[number_notches] = input_int;
+        number_notches++;
+      }
+
     }
     i++;
     input >> input_int;
@@ -62,7 +83,6 @@ void Rotor::loadRotor(const char* filename){
 
 void Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_rotors){
 
-  //cout << endl << "Loading rotor positions for rotor " << rotor_id << "..."<< endl;
   ifstream input;
   input.open(filename);
   int input_int;
