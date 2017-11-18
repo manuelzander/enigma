@@ -123,6 +123,12 @@ int Enigma::checkPlugboardConfig(const char* filename){
 
     temp_storage[count] = input_int;
 
+    //Checking for NON_NUMERIC_CHARACTER
+    if (!input.good() && !input.eof()){
+      input.close();
+      return NON_NUMERIC_CHARACTER_PLUGBOARD;
+    }
+
     //Checking for IMPOSSIBLE_PLUGBOARD_CONFIGURATION
     if (count > 0){
       for(int i = 0; i < count; i++){
@@ -137,12 +143,6 @@ int Enigma::checkPlugboardConfig(const char* filename){
     if(input_int < 0 || input_int > 25){
       input.close();
       return INVALID_INDEX;
-    }
-
-    //Checking for NON_NUMERIC_CHARACTER
-    if (!input.good() && !input.eof()){
-      input.close();
-      return NON_NUMERIC_CHARACTER_PLUGBOARD;
     }
 
     count++;
@@ -182,6 +182,12 @@ int Enigma::checkReflectorConfig(const char* filename){
 
     temp_storage[count] = input_int;
 
+    //Checking for NON_NUMERIC_CHARACTER
+    if (!input.good() && !input.eof()){
+      input.close();
+      return NON_NUMERIC_CHARACTER_REFLECTOR;
+    }
+
     //Checking for INVALID_REFLECTOR_MAPPING
     if (count > 0){
       for(int i = 0; i < count; i++){
@@ -196,12 +202,6 @@ int Enigma::checkReflectorConfig(const char* filename){
     if(input_int < 0 || input_int > 25){
       input.close();
       return INVALID_INDEX;
-    }
-
-    //Checking for NON_NUMERIC_CHARACTER
-    if (!input.good() && !input.eof()){
-      input.close();
-      return NON_NUMERIC_CHARACTER_REFLECTOR;
     }
 
     count++;
@@ -238,16 +238,16 @@ int Enigma::checkRotorPositionsConfig(const char* filename){
 
   while (!input.eof()){
 
-    //Checking for INVALID_INDEX
-    if(input_int < 0 || input_int > 25){
-      input.close();
-      return INVALID_INDEX;
-    }
-
     //Checking for NON_NUMERIC_CHARACTER
     if (!input.good() && !input.eof()){
       input.close();
       return NON_NUMERIC_CHARACTER_POSITIONS;
+    }
+
+    //Checking for INVALID_INDEX
+    if(input_int < 0 || input_int > 25){
+      input.close();
+      return INVALID_INDEX;
     }
 
     count++;
@@ -282,11 +282,16 @@ int Enigma::checkRotorConfig(const char* filename){
 
     temp_storage[count] = input_int;
 
+    //Checking for NON_NUMERIC_CHARACTER
+    if (!input.good() && !input.eof()){
+      input.close();
+      return NON_NUMERIC_CHARACTER_ROTOR;
+    }
+
     //Checking for INVALID_ROTOR_MAPPING
     if (count > 0 && count < ALPHABET_SIZE){
       for(int i = 0; i < count; i++){
         if (temp_storage[i] == input_int){
-          cout << i << "   " << temp_storage[i] << " " << input_int << endl;
           input.close();
           return INVALID_ROTOR_MAPPING;
         }
@@ -297,12 +302,6 @@ int Enigma::checkRotorConfig(const char* filename){
     if(input_int < 0 || input_int > 25){
       input.close();
       return INVALID_INDEX;
-    }
-
-    //Checking for NON_NUMERIC_CHARACTER
-    if (!input.good() && !input.eof()){
-      input.close();
-      return NON_NUMERIC_CHARACTER_ROTOR;
     }
 
     if (count > (ROTOR_MAP_SIZE + MAX_NOTCHES)){
