@@ -14,7 +14,7 @@ Rotor::Rotor(){
   for (int i = 0; i < MAX_NOTCHES; i++){
     notchconfig[i] = 0;
   }
-  
+
   rotation = 0;
   number_notches = 0;
 }
@@ -52,10 +52,8 @@ void Rotor::loadRotor(const char* filename){
     else{ //Reading in of notches
 
       //Only add another notch, if notch not in array yet
-      bool found = false;
-
       if (number_notches > 0){
-
+        bool found = false;
         for(int i = 0; i <= number_notches; i++){
           if (notchconfig[i] == input_int){
             found = true;

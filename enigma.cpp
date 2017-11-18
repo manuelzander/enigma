@@ -110,6 +110,7 @@ int Enigma::checkPlugboardConfig(const char* filename){
   ifstream input;
   input.open(filename);
   if (input.fail()){
+    input.close();
     return ERROR_OPENING_CONFIGURATION_FILE;
   }
 
@@ -120,6 +121,12 @@ int Enigma::checkPlugboardConfig(const char* filename){
   input >> input_int;
 
   while (!input.eof()){
+
+    //Checking for INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS
+    if (count >= ALPHABET_SIZE){
+      input.close();
+      return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
+    }
 
     temp_storage[count] = input_int;
 
@@ -152,13 +159,8 @@ int Enigma::checkPlugboardConfig(const char* filename){
   input.close();
 
   //Checking for INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS_ODD
-  if (count > 26 && count%2 != 0){
-    return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS_ODD;
-  }
-
-  //Checking for INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS
   if (count%2 != 0){
-    return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
+    return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS_ODD;
   }
 
   return NO_ERROR;
@@ -169,6 +171,7 @@ int Enigma::checkReflectorConfig(const char* filename){
   ifstream input;
   input.open(filename);
   if (input.fail()){
+    input.close();
     return ERROR_OPENING_CONFIGURATION_FILE;
   }
 
@@ -179,6 +182,11 @@ int Enigma::checkReflectorConfig(const char* filename){
   input >> input_int;
 
   while (!input.eof()){
+
+    if (count >= ALPHABET_SIZE){
+      input.close();
+      return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD;
+    }
 
     temp_storage[count] = input_int;
 
@@ -228,6 +236,7 @@ int Enigma::checkRotorPositionsConfig(const char* filename){
   ifstream input;
   input.open(filename);
   if (input.fail()){
+    input.close();
     return ERROR_OPENING_CONFIGURATION_FILE;
   }
 
@@ -269,6 +278,7 @@ int Enigma::checkRotorConfig(const char* filename){
   ifstream input;
   input.open(filename);
   if (input.fail()){
+    input.close();
     return ERROR_OPENING_CONFIGURATION_FILE;
   }
 
@@ -279,6 +289,11 @@ int Enigma::checkRotorConfig(const char* filename){
   input >> input_int;
 
   while (!input.eof()){
+
+    if (count >= (ROTOR_MAP_SIZE + MAX_NOTCHES)){
+      input.close();
+      return INVALID_ROTOR_MAPPING;
+    }
 
     temp_storage[count] = input_int;
 
@@ -302,11 +317,6 @@ int Enigma::checkRotorConfig(const char* filename){
     if(input_int < 0 || input_int > 25){
       input.close();
       return INVALID_INDEX;
-    }
-
-    if (count > (ROTOR_MAP_SIZE + MAX_NOTCHES)){
-      input.close();
-      return INVALID_ROTOR_MAPPING;
     }
 
     count++;
