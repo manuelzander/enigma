@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <cstdlib>
 #include "errors.h"
 #include "helper.h"
 #include "plugboard.h"
@@ -11,7 +10,7 @@ Plugboard::Plugboard(){
   for (int i = 0; i < ALPHABET_SIZE; i++){
     plugboardconfig[i] = 0;
   }
-  
+
   number_count = 0;
 }
 

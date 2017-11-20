@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <cstdlib>
 #include "enigma.h"
 #include "plugboard.h"
 #include "errors.h"
