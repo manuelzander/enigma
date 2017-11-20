@@ -21,14 +21,29 @@ Enigma::~Enigma(){
   delete [] rotor_array; //Free memory
 }
 
+char Enigma::encode(char c){
+
+  c = c - 65; //Convert from ASCII to 0 based alphabet
+
+  c = plugboard.runPlugboard(c); // 1. run of plugboard
+  if (number_rotors != 0){ //Forward rotor encryption
+    turnRotors();
+    c = runRotors(c);
+  }
+	c = reflector.runReflector(c); // Reflector encryption
+  if (number_rotors != 0) // Backwards rotor encryption
+    c = runRotorsBack(c);
+  c = plugboard.runPlugboard(c); // 2. run of plugboard
+
+  return c + 65; //Convert back from 0 based alphabet to ASCII
+}
+
 void Enigma::turnRotors(){
 
-  //cout << endl << "Turn rotor 0" << endl;
-  rotor_array[0].turn();
+  rotor_array[0].turn(); //First (always) turn rotor 0
 
-  for(int i = 0; i < number_rotors; i++) {
+  for(int i = 0; i < number_rotors; i++) { //Then turn next rotors if notch fouund
 		if(rotor_array[i].testForNotch() == true && number_rotors > i+1) {
-      //cout << endl << "Notch hit, turn rotor " << i + 1 << endl;
 			rotor_array[i+1].turn();
 		} else{
       break;
@@ -38,6 +53,7 @@ void Enigma::turnRotors(){
 
 char Enigma::runRotors(char c){
 
+  //Send each char through all the rotors
   for(int i = 0; i < number_rotors; i++){
     c = rotor_array[i].encodeChar(c);
   }
@@ -46,30 +62,11 @@ char Enigma::runRotors(char c){
 
 char Enigma::runRotorsBack(char c){
 
+  //Send each char back through all the rotors
   for(int i = number_rotors-1; i >= 0; i--){
     c = rotor_array[i].encodeCharBack(c);
   }
   return c;
-}
-
-char Enigma::encode(char c){
-
-  c = c - 65; //Convert from ASCII to 0 based alphabet
-
-  c = plugboard.runPlugboard(c); // 1. run of plugboard
-
-  if (number_rotors != 0) //Forward rotor encryption
-    turnRotors();
-    c = runRotors(c);
-
-	c = reflector.runReflector(c); // Reflector encryption
-
-  if (number_rotors != 0) // Backwards rotor encryption
-    c = runRotorsBack(c);
-
-  c = plugboard.runPlugboard(c); // 2. run of plugboard
-
-  return c + 65; //Convert from 0 based alphabet to ASCII
 }
 
 int Enigma::config(int argc, char** argv){
@@ -81,25 +78,31 @@ int Enigma::config(int argc, char** argv){
   if(checkReflectorConfig(argv[2]) != 0){
     return checkReflectorConfig(argv[2]);
   }
-  for (int i = 3; i < argc-1; i++){
-    if(checkRotorConfig(argv[i]) != 0){
-      return checkRotorConfig(argv[i]);
+  //Do checks for rotor files only if there are rotors
+  if (number_rotors != 0){
+    for (int i = 3; i < argc-1; i++){
+      if(checkRotorConfig(argv[i]) != 0){
+        return checkRotorConfig(argv[i]);
+      }
     }
-  }
-  if(checkRotorPositionsConfig(argv[argc - 1]) != 0){
-    return checkRotorPositionsConfig(argv[argc - 1]);
+    if(checkRotorPositionsConfig(argv[argc - 1]) != 0){
+      return checkRotorPositionsConfig(argv[argc - 1]);
+    }
   }
 
   //If error checks do not fail, load the configurations
   plugboard.loadPlugboard(argv[1]);
   reflector.loadReflector(argv[2]);
   int argc_temp = argc - 2;
-  for (int i = 0; i < number_rotors; i++){
-    rotor_array[i].loadRotor(argv[argc_temp]);
-    argc_temp--;
-  }
-  for (int i = number_rotors-1; i >= 0; i--){
-    rotor_array[i].loadRotorPosition(argv[argc - 1], i, number_rotors);
+  //Load rotors only if there are rotors
+  if (number_rotors != 0){
+    for (int i = 0; i < number_rotors; i++){
+      rotor_array[i].loadRotor(argv[argc_temp]);
+      argc_temp--;
+    }
+    for (int i = number_rotors-1; i >= 0; i--){
+      rotor_array[i].loadRotorPosition(argv[argc - 1], i, number_rotors);
+    }
   }
 
   return NO_ERROR;
@@ -183,6 +186,7 @@ int Enigma::checkReflectorConfig(const char* filename){
 
   while (!input.eof()){
 
+    //Checking for INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD
     if (count >= ALPHABET_SIZE){
       input.close();
       return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS_ODD;
@@ -261,7 +265,6 @@ int Enigma::checkRotorPositionsConfig(const char* filename){
 
     count++;
     input >> input_int;
-
   }
 
   //Checking for NO_ROTOR_STARTING_POSITION
@@ -325,6 +328,7 @@ int Enigma::checkRotorConfig(const char* filename){
 
   input.close();
 
+  //Checking for INVALID_ROTOR_MAPPING_NOT_ENOUGH_PARAMETERS
   if (count < ROTOR_MAP_SIZE){
     return INVALID_ROTOR_MAPPING_NOT_ENOUGH_PARAMETERS;
   }

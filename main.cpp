@@ -10,17 +10,20 @@ using namespace std;
 
 int main(int argc, char** argv){
 
+  int error_code;
   char c;
 
-  if(argc < 3) {
+  if(argc < 3 || argc == 4) {
     cerr << "usage: enigma plugboard-file reflector-file (<rotor-file>* rotor-positions)?" << endl;
     return INSUFFICIENT_NUMBER_OF_PARAMETERS;
 	}
 
   Enigma enig (argc, argv);
 
-  if (enig.config(argc, argv) != 0){
-    return enig.printErrorMessage(enig.config(argc, argv));
+  //Check files for errors, output errors to cerr if appropriate
+  error_code = enig.config(argc, argv);
+  if (error_code > 0){
+    return enig.printErrorMessage(error_code);
   }
 
   while(cin >> ws >> c){
@@ -32,5 +35,4 @@ int main(int argc, char** argv){
   }
 
   return NO_ERROR;
-
 }
