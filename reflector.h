@@ -13,9 +13,9 @@ private:
 
 public:
   Reflector();
-  void loadReflector(const char* filename);
   //Mapping of character
   char runReflector(char c);
+  void loadReflector(const char* filename);
 };
 
 #endif

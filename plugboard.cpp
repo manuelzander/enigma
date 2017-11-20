@@ -6,12 +6,10 @@
 
 using namespace std;
 
-Plugboard::Plugboard(){
+Plugboard::Plugboard(): number_count(0) {
   for (int i = 0; i < ALPHABET_SIZE; i++){
     plugboardconfig[i] = 0;
   }
-
-  number_count = 0;
 }
 
 char Plugboard::runPlugboard(char c){

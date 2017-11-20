@@ -6,16 +6,13 @@
 
 using namespace std;
 
-Rotor::Rotor(){
+Rotor::Rotor(): number_notches(0), rotation(0) {
   for (int i = 0; i < ROTOR_MAP_SIZE; i++){
     rotorconfig[i] = 0;
   }
   for (int i = 0; i < MAX_NOTCHES; i++){
     notchconfig[i] = 0;
   }
-
-  rotation = 0;
-  number_notches = 0;
 }
 
 char Rotor::encodeChar(char c){
@@ -32,6 +29,18 @@ char Rotor::encodeCharBack(char c){
   }
 
   return c;
+}
+
+void Rotor::turn(){
+  rotation = (rotation + 1) % ALPHABET_SIZE;
+}
+
+bool Rotor::testForNotch(){
+  for(int i = 0; i < number_notches; i++){
+    if (notchconfig[i] == rotation)
+      return true;
+  }
+  return false;
 }
 
 void Rotor::loadRotor(const char* filename){
@@ -63,7 +72,7 @@ void Rotor::loadRotor(const char* filename){
         if(found != true){
           notchconfig[number_notches] = input_int;
           number_notches++;
-      }
+        }
 
       }else {
         notchconfig[number_notches] = input_int;
@@ -93,16 +102,4 @@ void Rotor::loadRotorPosition(const char* filename, int rotor_id, int number_rot
   }
 
   input.close();
-}
-
-void Rotor::turn(){
-  rotation = (rotation + 1) % ALPHABET_SIZE;
-}
-
-bool Rotor::testForNotch(){
-  for(int i = 0; i < number_notches; i++){
-    if (notchconfig[i] == rotation)
-      return true;
-  }
-  return false;
 }

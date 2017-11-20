@@ -14,9 +14,9 @@ private:
 
 public:
   Plugboard();
-  void loadPlugboard(const char* filename);
   //Mapping of character
   char runPlugboard(char c);
+  void loadPlugboard(const char* filename);
 };
 
 #endif

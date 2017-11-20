@@ -16,8 +16,6 @@ private:
 
 public:
   Rotor();
-  void loadRotor(const char* filename);
-  void loadRotorPosition(const char* filename, int rotor_id, int number_rotors);
   //Mapping of character (before reflector)
   char encodeChar(char c);
   //Mapping of character (after reflector)
@@ -26,6 +24,8 @@ public:
   void turn();
   //Test if notch specified for given position
   bool testForNotch();
+  void loadRotor(const char* filename);
+  void loadRotorPosition(const char* filename, int rotor_id, int number_rotors);
 };
 
 #endif
